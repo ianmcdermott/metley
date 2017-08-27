@@ -439,7 +439,6 @@ function handleSubmit(){
 
 
 function updatePlaylist(){
-	//convert local storage string back into object array
 	let songs = JSON.parse(sessionStorage.getItem("songs"));
 	$(renderPlaylist(songs));
 }
