@@ -1,0 +1,149 @@
+html{
+	box-sizing: border-box;
+		background-color: #aaa;
+
+}
+
+*, *:before, *:after{
+	box-sizing: inherit;
+	font-family: "Helvetica", sans-serif;
+}
+
+.wrapper{
+	text-align: center;
+
+}
+
+body{
+	padding: 10px;
+	height: 100%;
+}
+
+main{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+		background-color: #fff;
+
+}
+
+label{
+	padding: 10px 5px;
+	margin: 0;
+	width: 100%;
+}
+
+header{
+	background-color: #000;
+	color: #fff;
+	padding: 15px;
+	text-align: center;
+}
+
+header h1{
+	text-align: center;
+}
+
+select{
+	height: 50px;
+	text-align: center;
+	width: 100%;
+}
+footer{
+	margin-top: 30px;
+	clear: both;
+	height: 40px;
+	background-color: #ddd;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+}
+
+
+
+.submit{
+	display: block;
+	height: 50px;
+	width: 100%;
+	margin-top: 15px;
+	border-radius: 5px;
+	background-color: #D8D555;
+}
+
+.journey-description{
+	width: 80%;
+}
+
+.js-playlist-entry{
+	border: 1px solid black;
+	width: 100%;
+	padding: 5px;
+	text-align: left;
+
+}
+
+.js-playlist-entry p{
+	display: inline;
+}
+
+.js-song-name{
+	text-align: left;
+}
+
+.js-song-time{
+	float: right;
+}
+
+
+.js-now-playing-btn, .js-view-playlist-btn{
+	width: 100%;
+	height: 50px;
+	background-color: #f00;
+	float: left;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.js-new-journey-btn{
+	width: 100%;
+	height: 50px;
+	background-color: #000;
+	display: block;
+	float: left;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.js-view-playlist{
+	padding: 0;
+}
+
+	text-decoration: none;
+	background-color: #fff;
+}
+
+
+a{
+	background-color: #000;
+}
+
+.js-now-playing-btn:hover a, .js-view-playlist-btn:hover a, .js-new-journey-btn:hover a, .js-now-playing-btn:hover, .js-view-playlist-btn:hover, .js-new-journey-btn:hover{
+	color: #000;
+	text-decoration: none;
+	background-color: #fff;
+}
+
+div a{
+	text-decoration: none;
+	display: block;
+	width: 100%
+	height: 100%;
+	color: #fff;
+}
+
+.media-object{
+	border-radius: 50%;
+}
