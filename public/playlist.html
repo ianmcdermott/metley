@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Metro Music Playlist</title>
+	<title>Metley Playlist</title>
 	<meta name="description" content="Make a Spotify Playlist the length of your train journey!">
 	<link href="main.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -15,13 +15,16 @@
 </head>
 <body onload="updatePlaylist();">
 	<div class="wrapper container-fluid">
-	<header class="row justify-conent-md-center"><h1>Metro Music</h1></header>
+	<header class="row justify-conent-md-center"><h1>Metley</h1></header>
+
 		<main class="row">
 		<h2>Playlist</h2>
 			<div class="js-playlist justify-conent-md-center"></div>
 		<!--<div class="js-now-playing-btn"><a href="#">View Now Playing</a></div>-->
-			<div class="js-view-playlist-btn col-sm-6"><a href="journey.html">View Journey Details</a></div>
-			<div class="js-new-journey-btn col-sm-6"><a href="index.html">Plan a new Journey</a></div>
+			<div class="col-sm-12">
+				<div class="js-view-playlist-btn col-sm-6"><a href="journey.html">View Journey Details</a></div>
+				<div class="js-new-journey-btn col-sm-6"><a href="index.html">Plan a new Journey</a></div>
+			</div>
 		</main>
 		<footer class="row"><a href="/about">More about Metro Music</a></footer>	
 	</div>
