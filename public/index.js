@@ -15,7 +15,7 @@ const PLAYLIST = [];
 const MASTER_TRACKLIST = [];
 let playlistArray = [];
 
-let musicKey = 5;
+let musicKey = Math.floor(Math.random(12));
 let desiredMood = "";
 
 let waitTime = 0;
@@ -105,11 +105,11 @@ function getStationID(data){
 //function that returns wait time
 function getWaitTime(){
 	//function that retrieves location's code*/
-	getWaitPredictionAPI(returnWaitTime);
+	getWaitPredictionEndpoint(returnWaitTime);
 }
 
 //gets wait time from Predictions API
-function getWaitPredictionAPI(callback){
+function getWaitPredictionEndpoint(callback){
 	let params = {
             "api_key": WMATA_KEY,
         };
@@ -282,7 +282,11 @@ function parseKey(data, trackName){
 				MASTER_TRACKLIST.push(data.audio_features[i]);
 				MASTER_TRACKLIST[MASTER_TRACKLIST.length-1].name = TRACK_IDS[i].name;
 				playlistTime += data.audio_features[i].duration_ms;	
+				updateProgress(Math.round(playlistTime/parseInt(totalTime*60000+60000)));
+
 			} else {
+				updateProgress(100);
+
 				createPlaylist(addTracksToPlaylist);
 				break;
 			}
@@ -297,7 +301,7 @@ function createPlaylist(callback){
 	$.ajax(url, {
 		method: 'POST',
 		data: JSON.stringify({
-			'name': 'Metro-Music',
+			'name': desiredMood + ' Metro-Music',
 			'public': false
 		}),
 		dataType: 'json',
@@ -351,6 +355,7 @@ function openPlaylist(data, link){
 
 //order songs by lowest energy to highest
 function sortByEnergy(a, b){
+	console.log("sorting ");
 	return a - b;
 }
 
@@ -414,6 +419,7 @@ function convertToSeconds(milliseconds){
 function handleSubmit(){
 	$(".js-journey-form").submit(function(event){ 
 		event.preventDefault();
+		showProgress();
 		sessionStorage.clear();
 		desiredMood = $(this).find("#mood").val(); 
 		fromStation = $(this).find("#location").val();
@@ -450,6 +456,21 @@ function renderJourney(){
 	$(".js-wait-time").text(`Wait Time: ${waitTime}`);
 	$(".js-trip-time").text(`Travel Time: ${tripTime}`);
 	$(".js-delay-time").text(`Delay Time: ${delayTime}`);
+}
+
+function showProgress(){
+	$('#progress-wrapper').css('display', 'flex');
+}
+
+function updateProgress(percentage){
+	let elem = document.getElementById('progress-bar');
+	let width = 1;
+	console.log('progress running ' + percentage*100 + "%");
+	
+	width = percentage;
+	elem.style.width = percentage*100 + '%';
+		
+	
 }
 
 function runApp(){

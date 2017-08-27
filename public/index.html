@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Example of the Implicit Grant flow with Spotify</title>
+    <title>Metley Login</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link href="main.css" rel="stylesheet" type="text/css" />
 
@@ -21,7 +21,7 @@
   <body>
     <div class="container">
       <div id="login">
-        <h1>This is an example of the Implicit Grant flow</h1>
+        <h1>Metley</h1>
         <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
       </div>
       <div id="loggedin">
@@ -41,7 +41,7 @@
         <div class="media-body">
           <div class="dl-horizontal">
             <p>Logged In As</p><p class="clearfix">{{display_name}}<a href="">Not You?</a></p>
-            <p>Metro Music will be able to:</p>
+            <p>Metley will be able to:</p>
             <p>Read your publicly avaiable information</p>
             <p>Access your profile name, image and subscription details</p>
             <p>Get your real email address</p>
@@ -114,7 +114,7 @@
        // console.log("AT "+access_token);
 
         if (access_token && (state == null || state !== storedState)) {
-          alert('There was an error during the authentication');
+          alert('There was an error during the authentication');//
         } else {
           //remove stateKey from local storage
           localStorage.removeItem(stateKey);
@@ -142,7 +142,7 @@
           document.getElementById('login-button').addEventListener('click', function() {
 
             var client_id = '29c07facce49487e810599c1d0acc975'; // Your client id
-            var redirect_uri = 'http://localhost:8888'; // Your redirect uri
+            var redirect_uri = "https://ianmcdermott.github.io/metley";//'http://localhost:8888'; // Your redirect uri
 
             var state = generateRandomString(16);
 
