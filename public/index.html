@@ -34,19 +34,19 @@
 
     <script id="user-profile-template" type="text/x-handlebars-template">
       <h1>Logged in as {{display_name}}</h1>
-      <div class="media">
-        <div class="pull-left">
-        <!--  <img class="media-object" width="150" src="{{images.0.url}}" /> -->
+      <div class="media container-fluid wrapper">
+        <div class="col-sm-12">
+        <img class="media-object" width="150" src="{{images.0.url}}" /> 
         </div>
         <div class="media-body">
-          <div class="dl-horizontal">
+          <div class="dl-horizontal col-sm-12">
             <p>Logged In As</p><p class="clearfix">{{display_name}}<a href="">Not You?</a></p>
-            <p>Metley will be able to:</p>
-            <p>Read your publicly avaiable information</p>
-            <p>Access your profile name, image and subscription details</p>
-            <p>Get your real email address</p>
+            Metley will be able to:<br>
+            Read your publicly avaiable information<br>
+            Access your profile name, image and subscription details<br>
+            Get your real email address</p>
           </div>
-          <a href="/metley/public/plan.html">Plan Your Journey</a>
+          <a class="col-sm-12" href="/metley/public/plan.html">Plan Your Journey</a>
         </div>
       </div>
     </script>

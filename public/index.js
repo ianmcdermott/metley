@@ -301,7 +301,7 @@ function createPlaylist(callback){
 	$.ajax(url, {
 		method: 'POST',
 		data: JSON.stringify({
-			'name': desiredMood + ' Metro-Music',
+			'name': 'Metly: A ' + desiredMood + " Journey to " destination,
 			'public': false
 		}),
 		dataType: 'json',
