@@ -125,7 +125,9 @@ footer{
 	background-color: #fff;
 }
 
-
+.js-wait-time{
+	display:none;
+}
 a{
 	background-color: #000;
 }
