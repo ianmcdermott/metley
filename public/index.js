@@ -6,16 +6,18 @@ const WMATA_STATIONS_URL = "https://api.wmata.com/Rail.svc/json/jStations";
 const WMATA_STATION_TO_STATION_URL = "https://api.wmata.com/Rail.svc/json/jSrcStationToDstStationInfo"
 const STATION_CODE_URL = "https://api.wmata.com/Rail.svc/json/jStations/"
 
+let spotifyLink = ""
+
 const WMATA_KEY = "cc26ae8a817a4cb296f2a9a68f5b9c0a";
 let spotifyUserId = "";
 
 let TRACK_IDS = [];
 const PLAYLIST = [];
 //const TRACKS = [];
-const MASTER_TRACKLIST = [];
+let MASTER_TRACKLIST = [];
 let playlistArray = [];
 
-let musicKey = Math.floor(Math.random(12));
+let musicKey = 0;
 let desiredMood = "";
 
 let waitTime = 0;
@@ -128,7 +130,7 @@ function getWaitPredictionEndpoint(callback){
 //Get Time of Wait 
 function returnWaitTime(data){
 	for(let i = 0; i < data.Trains.length; i++){
-			waitTime = data.Trains[i].Min;
+			waitTime = 0;//data.Trains[i].Min;
 	}
 	getDelayTime();	
 }
@@ -285,8 +287,8 @@ function parseKey(data, trackName){
 				updateProgress(Math.round(playlistTime/parseInt(totalTime*60000+60000)));
 
 			} else {
-				updateProgress(100);
-
+				updateProgress(1);
+				sortByEnergy();
 				createPlaylist(addTracksToPlaylist);
 				break;
 			}
@@ -296,12 +298,39 @@ function parseKey(data, trackName){
 	getSpotifyPlaylist(getPlaylistItems, desiredMood);
 }
 
+
+//order songs by lowest energy to highest
+function sortByEnergy(){
+	let sortingArray = [];
+	let newMaster = []
+	for(let i = 0; i < MASTER_TRACKLIST.length; i++){
+		sortingArray.push(MASTER_TRACKLIST[i].energy)
+		console.log(MASTER_TRACKLIST[i].name +":::"+ MASTER_TRACKLIST[i].energy);
+	}
+	console.log("sorting "+sortingArray);
+	sortingArray.sort((a, b)=> a-b);
+	console.log("sorting 2"+sortingArray);
+
+	for(let j = 0; j < sortingArray.length; j++){
+		for(let i = 0; i < MASTER_TRACKLIST.length; i++){
+			if(MASTER_TRACKLIST[i].energy === sortingArray[j]){
+				newMaster.push(MASTER_TRACKLIST[i]);
+				break;
+			}
+		}
+	}
+	MASTER_TRACKLIST = newMaster; 
+	for(let i = 0; i < MASTER_TRACKLIST.length; i++){
+		console.log(MASTER_TRACKLIST[i].name +":::"+ MASTER_TRACKLIST[i].energy);
+	}
+}
+
 function createPlaylist(callback){
 	var url = 'https://api.spotify.com/v1/users/' + spotifyUserId + '/playlists';
 	$.ajax(url, {
 		method: 'POST',
 		data: JSON.stringify({
-			'name': 'Metly: A ' + desiredMood + " Journey to " destination,
+			'name': 'Metly: A ' + desiredMood + " Journey to " + toStation,
 			'public': false
 		}),
 		dataType: 'json',
@@ -349,18 +378,16 @@ function addTracksToPlaylist(data, callback){
 }
 
 function openPlaylist(data, link){
-	window.open(link);
+	spotifyLink = link;
+	sessionStorage.link =  JSON.stringify(spotifyLink);
 	$("#js-journey-form").unbind().submit();
-}
-
-//order songs by lowest energy to highest
-function sortByEnergy(a, b){
-	console.log("sorting ");
-	return a - b;
 }
 
 ///////// ::::: :: : : DOM RENDERING : : :: :::::: /////////
 function renderPlaylist(songs){
+	spotifyLink = JSON.parse(sessionStorage.link);
+	window.open(spotifyLink);
+
 	songs.forEach(item => {
 		let duration = convertTrackTime(item.duration_ms);
 		$(".js-playlist").append(`
@@ -419,13 +446,17 @@ function convertToSeconds(milliseconds){
 function handleSubmit(){
 	$(".js-journey-form").submit(function(event){ 
 		event.preventDefault();
-		showProgress();
+		musicKey = Math.floor(Math.random()*12);
+		console.log("music key is "+musicKey);
 		sessionStorage.clear();
 		desiredMood = $(this).find("#mood").val(); 
 		fromStation = $(this).find("#location").val();
 		toStation = $(this).find("#destination").val();
 		if(fromStation == toStation){
-			alert("Please make sure that your current station and destination are different.");
+			$(".warning").css("display", "block");
+		//	alert("Please make sure that your current station and destination are different.");
+		} else {
+			showProgress();
 		}
 		getStationCode(fromStation, toStation);
 
@@ -467,6 +498,7 @@ function updateProgress(percentage){
 	console.log('progress running ' + percentage*100 + "%");
 	
 	width = percentage;
+	if(width > 1) width = 1;
 	elem.style.width = percentage*100 + '%';
 		
 	

@@ -20,10 +20,10 @@
 
   <body>
     <div class="wrapper container-fluid">
-      <div id="login">
+      <div id="login" class="row">
         <h1>Metley</h1>
         <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
-        <p>Don't have Spotify? <a href="">Register here</a></p>
+        <p>Don't have Spotify?<a href="">Register here</a></p>
       </div>
       <div id="loggedin">
         <div id="user-profile">
@@ -31,33 +31,34 @@
         <div id="oauth">
         </div>
       </div>
-    </div>
+    
 
     <script id="user-profile-template" type="text/x-handlebars-template">
       <div class="wrapper container-fluid">
-        <h1 class="col-sm-12">Logged in as<br>{{display_name}}</h1>
+        <h1 class="row">Logged in as<br>{{display_name}}</h1>
         <div class="">
           <img class="media-object" width="150" src="{{images.0.url}}" /> 
         </div>
           <div class="media-body">
             <div class="main col-sm-12">
-              <p>4p class="clearfix">{{display_name}}<a href="">Not You?</a></p>
+              <p>{{display_name}}<a href="">Not You?</a></p>
               Metley will be able to:<br>
               Read your publicly avaiable information<br>
               Access your profile name, image and subscription details<br>
               Get your real email address</p>
             </div>
-            <a class="col-sm-12" href="/metley/public/plan.html">Plan Your Journey</a>
+            <a class="col-sm-12" href="/plan.html">Plan Your Journey</a>
           </div>
         </div>
       </div>
     </script>
-
+<!--/metley/public-->
     <script id="oauth-template" type="text/x-handlebars-template">
       <h2>oAuth info</h2>
       <dl class="dl-horizontal">
         <dt>Access token</dt><dd class="text-overflow">{{access_token}}</dd>
       </dl>
+      </div>
     </script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
@@ -147,7 +148,8 @@
           document.getElementById('login-button').addEventListener('click', function() {
 
             var client_id = '29c07facce49487e810599c1d0acc975'; // Your client id
-            var redirect_uri = "https://ianmcdermott.github.io/metley/public/"; //'http://localhost:8888'; // 
+        //    var redirect_uri = 'http://localhost:8888'; // "https://ianmcdermott.github.io/metley/public/"; //
+            var redirect_uri = "https://ianmcdermott.github.io/metley/public/"; //
 
             var state = generateRandomString(16);
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Metley Journey</title>
+	<title>About Metley</title>
 	<meta name="description" content="Make a Spotify Playlist the length of your train journey!">
 	<link href="main.css" rel="stylesheet" type="text/css" />
 	<link href="/meyerreset.css" rel="stylesheet" type="text/css">
@@ -14,23 +14,26 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 </head>
-<body onload="renderJourney();">
+<body onload="updatePlaylist();">
 	<div class="wrapper container-fluid">
-		<header class="row"><h1>Metley</h1></header>
+	<header class="row justify-conent-md-center"><h1>About Metley</h1></header>
 		<main role="main" class="row">
-			<h2>Journey Details</h2>
-			<p class="js-journey-description">A <span class="js-mood"></span> Journey from {Location} to {Destination}</p>
-			<!--<p class="js-wait-time"></p>-->
-			<p class="js-trip-time"></p>
-			<!--<p class="js-delay-time"></p>-->
+			<div class="col-sm-6 col-sm-offset-3 justify-conent-md-center">
+				<p>Create medleys the length of your metro journey.</p>
+				<p><strong>How does it work?</strong><p>
+				<p>Metley gently sifts through Spotify gathering music according to your current or desired mood. It takes the time to organize tracks according your key, creating a cohesive soundtrack for the length of your journey.<p>
+			</div>
+		<!--<div class="js-now-playing-btn"><a href="#">View Now Playing</a></div>-->
+			<div class="row">
+				<div class="js-view-playlist-btn col-sm-4"><a href="journey.html">View Journey Details</a></div>
+				<div class="js-new-journey-btn col-sm-4"><a href="index.html">Plan a new Journey</a></div>
+				<div class="js-view-playlist-btn col-sm-4"><a href="playlist.html">View Playlist</a></div>
+			</div>
 		</main>
-		<div class="row">
-			<div class="js-view-playlist-btn col-sm-6"><a href="playlist.html">View Playlist</a></div>
-			<div class="js-new-journey-btn col-sm-6"><a href="index.html">Plan a new Journey</a></div>
-		</div>
-		<footer class="row" id="footer" role="footer"><a href="about.html">More about Metro Music</a></footer>	
+		<footer role="footer" class="row"></footer>	
 	</div>
-<script
+
+	<script
 	src="https://code.jquery.com/jquery-3.2.1.js"
 	integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
 	crossorigin="anonymous">

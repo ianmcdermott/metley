@@ -1,6 +1,7 @@
 html{
 	box-sizing: border-box;
-		background-color: #aaa;
+	background-color: #aaa;
+	height: 100%;
 
 }
 
@@ -11,8 +12,11 @@ html{
 
 .wrapper{
 	text-align: center;
-
+	height: 100%;
+	max-width: 1000px;
 }
+
+
 
 body{
 	padding: 10px;
@@ -146,6 +150,12 @@ div a{
 	color: #fff;
 }
 
+.warning{
+	display: none;
+	background-color: #f00;
+	color: #fff;
+}
+
 .media-object{
 	border-radius: 50%;
 	margin: 0 auto;
@@ -173,4 +183,7 @@ div a{
 	width: 1%;
 	height: 30px;
 	background-color: #0a0;
+}
+
+#footer{
 }
