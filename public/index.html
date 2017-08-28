@@ -19,10 +19,11 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="wrapper container-fluid">
       <div id="login">
         <h1>Metley</h1>
         <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
+        <p>Don't have Spotify? <a href="">Register here</a></p>
       </div>
       <div id="loggedin">
         <div id="user-profile">
@@ -33,20 +34,21 @@
     </div>
 
     <script id="user-profile-template" type="text/x-handlebars-template">
-      <h1>Logged in as {{display_name}}</h1>
-      <div class="media container-fluid wrapper">
-        <div class="col-sm-12">
-        <img class="media-object" width="150" src="{{images.0.url}}" /> 
+      <div class="wrapper container-fluid">
+        <h1 class="col-sm-12">Logged in as<br>{{display_name}}</h1>
+        <div class="">
+          <img class="media-object" width="150" src="{{images.0.url}}" /> 
         </div>
-        <div class="media-body">
-          <div class="dl-horizontal col-sm-12">
-            <p>Logged In As</p><p class="clearfix">{{display_name}}<a href="">Not You?</a></p>
-            Metley will be able to:<br>
-            Read your publicly avaiable information<br>
-            Access your profile name, image and subscription details<br>
-            Get your real email address</p>
+          <div class="media-body">
+            <div class="main col-sm-12">
+              <p>4p class="clearfix">{{display_name}}<a href="">Not You?</a></p>
+              Metley will be able to:<br>
+              Read your publicly avaiable information<br>
+              Access your profile name, image and subscription details<br>
+              Get your real email address</p>
+            </div>
+            <a class="col-sm-12" href="/metley/public/plan.html">Plan Your Journey</a>
           </div>
-          <a class="col-sm-12" href="/metley/public/plan.html">Plan Your Journey</a>
         </div>
       </div>
     </script>
@@ -145,7 +147,7 @@
           document.getElementById('login-button').addEventListener('click', function() {
 
             var client_id = '29c07facce49487e810599c1d0acc975'; // Your client id
-            var redirect_uri = "https://ianmcdermott.github.io/metley/public/"; //'http://localhost:8888'; //
+            var redirect_uri = "https://ianmcdermott.github.io/metley/public/"; //'http://localhost:8888'; // 
 
             var state = generateRandomString(16);
 
