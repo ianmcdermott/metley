@@ -114,7 +114,9 @@
        // console.log("AT "+access_token);
 
         if (access_token && (state == null || state !== storedState)) {
-          alert('There was an error during the authentication');//
+          console.log(access_token);
+          console.log(state);
+        //  alert('There was an error during the authentication');//
         } else {
           //remove stateKey from local storage
           localStorage.removeItem(stateKey);
@@ -135,7 +137,7 @@
                 }
             });
           } else {
-            console.log("no access");
+            console.log("no access " + access_token);
               $('#login').show();
               $('#loggedin').hide();
           }
@@ -143,7 +145,7 @@
           document.getElementById('login-button').addEventListener('click', function() {
 
             var client_id = '29c07facce49487e810599c1d0acc975'; // Your client id
-            var redirect_uri = "https://ianmcdermott.github.io/metley/";///'http://localhost:8888'; 
+            var redirect_uri = "https://ianmcdermott.github.io/metley/public/index.html";///'http://localhost:8888'; 
 
             var state = generateRandomString(16);
 
