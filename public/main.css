@@ -31,6 +31,33 @@ main{
 
 }
 
+html,
+body,
+div,
+h1,
+p,
+a,
+video {
+  margin: 0;
+  padding: 0;
+}
+
+.content{
+	position: relative;
+	z-index: 2;
+}
+
+.video{
+	position: relative;
+	z-index: 1;
+	top: 50%; left: 50%;
+	transform: translate(-50%, -50%);
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+}
+
 label{
 	padding: 10px 5px;
 	margin: 0;
@@ -64,7 +91,9 @@ footer{
 	padding: 10px;
 }
 
-
+body, div, #about{
+	border-radius: 10px;
+}
 
 .submit{
 	display: block;
