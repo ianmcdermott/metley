@@ -1,93 +1,118 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Metley Login</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link href="main.css" rel="stylesheet" type="text/css" />
+<head>
+  <meta charset="utf-8"/>
+  <title>Metley Login</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link href="main.css" rel="stylesheet" type="text/css" />
 
-    <style type="text/css">
-      #login, #loggedin {
-        display: none;
-      }
-      .text-overflow {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 500px;
-      }
-    </style>
-  </head>
+  <style type="text/css">
+  #login, #loggedin {
+    display: none;
+  }
+  .text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 500px;
+  }
+</style>
+</head>
 
-  <body>
-    <div class="wrapper container-fluid">
-      <div id="login" class="row">
-        <h1>Metley</h1>
-        <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
-        <p>Don't have Spotify?<a href="#">Register here</a></p>
-      </div>
-      <div id="loggedin">
-        <div id="user-profile">
-        </div>
-        <div id="oauth">
-        </div>
-      </div>
-    
+<body>
+  <video class="video no-overflow" autoplay muted loop>
+   <source src="media/metleyback.mp4" type="video/mp4">
+   </video>
+   <div class="wrapper container-fluid no-overflow">
+     <div class="row">
+       <header class="col-sm-12"><h1>Metley</h1></header>
+     </div>
+    <main id="login" role="main" class="row">
+      <div class="col-sm-4"><button id="login-button" class="js-blue-btn">Log in with Spotify</button></div>
+      <div class="col-sm-6"><h2>Don't have Spotify?</h2>
+        <div class="col-sm-6"><button class="js-black-btn"><a href="https://www.spotify.com/us/signup/">Register here</a></p></div>
 
-    <script id="user-profile-template" type="text/x-handlebars-template">
-      <div class="wrapper container-fluid">
-        <h1 class="row">Logged in as<br>{{display_name}}</h1>
-        <div class="">
-          <img class="media-object" width="150" src="{{images.0.url}}" /> 
-        </div>
-          <div class="media-body">
-            <div class="main col-sm-12">
-              <p>{{display_name}}<a href="">Not You?</a></p>
-              Metley will be able to:<br>
-              Read your publicly avaiable information<br>
-              Access your profile name, image and subscription details<br>
-              Get your real email address</p>
-            </div>
-            <a class="col-sm-12" href="/metley/public/plan.html">Plan Your Journey</a>
+    </main>
+        <div id="loggedin">
+          <div id="user-profile">
+          </div>
+          <div id="oauth">
           </div>
         </div>
-      </div>
-    </script>
 
-    <script id="oauth-template" type="text/x-handlebars-template">
-      <h2>oAuth info</h2>
-      <dl class="dl-horizontal">
-        <dt>Access token</dt><dd class="text-overflow">{{access_token}}</dd>
-      </dl>
-      </div>
-    </script>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-    <script>
-      (function() {
+        <script id="user-profile-template" type="text/x-handlebars-template">
 
-        var stateKey = 'spotify_auth_state';
+          <main role="main">
+           <div class="row">
+             <img class="media-object col-sm-6" width="150" src="{{images.0.url}}" /> 
+             <h3 class="col-sm-6">Logged in as<br>{{display_name}}</h3>
 
+             <div class="col-sm-6"><button class="js-red-btn"><a href="">Not You?</a></button></div>
+
+           </div>
+           <div class="">
+             <div class="col-sm-12 description">
+               Metley will be able to:<br>
+               Read your publicly avaiable information<br>
+               Access your profile name, image and subscription details<br>
+             Get your real email address</p>
+           </div>
+         </div>
+         <div class="js-blue-btn col-sm-6"><a href="plan.html">Plan Your Journey</a></div>
+
+       </main>
+
+
+
+     </div>
+   </div>
+
+ </script>
+ <footer role="footer" class="row">
+  <div><a href="about.html">About Metley</a></div>
+  <div><p>&copy;Ian McDermott 2017</p></div>
+</footer> 
+</div>
+<script id="oauth-template" type="text/x-handlebars-template">
+  <h2>oAuth info</h2>
+  <dl class="dl-horizontal">
+    <dt>Access token</dt><dd class="text-overflow">{{access_token}}</dd>
+  </dl>
+</div>
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script>
+  (function() {
+    var stateKey = 'spotify_auth_state';
+    console.log("running1");
         /**
          * Obtains parameters from the hash of the URL
          * @return Object
          */
-        function getHashParams() {
+         function getHashParams() {
+          console.log("getHashParams running");
+
           var hashParams = {};
+
           var e, r = /([^&;=]+)=?([^&;]*)/g,
-              q = window.location.hash.substring(1);
+          q = window.location.hash.substring(1);
           while ( e = r.exec(q)) {
-             hashParams[e[1]] = decodeURIComponent(e[2]);
-          }
-          return hashParams;
-        }
+           hashParams[e[1]] = decodeURIComponent(e[2]);
+         }
+         return hashParams;
+       }
 
         /**
          * Generates a random string containing numbers and letters
          * @param  {number} length The length of the string
          * @return {string} The generated string
          */
-        function generateRandomString(length) {
+         function generateRandomString(length) {
+          console.log("generateRandomString running");
+
           var text = '';
           var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -95,31 +120,33 @@
             text += possible.charAt(Math.floor(Math.random() * possible.length));
           }
           return text;
-        };
+        }
 
-        var userProfileSource = document.getElementById('user-profile-template').innerHTML,
-            userProfileTemplate = Handlebars.compile(userProfileSource),
-            userProfilePlaceholder = document.getElementById('user-profile');
+        let userProfileSource = document.getElementById('user-profile-template').innerHTML;
+        let userProfileTemplate = Handlebars.compile(userProfileSource);
+        let userProfilePlaceholder = document.getElementById('user-profile');
 
-            oauthSource = document.getElementById('oauth-template').innerHTML,
-            oauthTemplate = Handlebars.compile(oauthSource),
-            oauthPlaceholder = document.getElementById('oauth');
+        var oauthSource = document.getElementById('oauth-template').innerHTML,
+        oauthTemplate = Handlebars.compile(oauthSource),
+        oauthPlaceholder = document.getElementById('oauth');
 
         var params = getHashParams();
+        console.log("params are "+params);
 
         var access_token = params.access_token,
-            state = params.state,
+        state = params.state,
             //get spotify_auth_state from local storage, set as storedState var
             storedState = localStorage.getItem(stateKey);
-        
-           sessionStorage.access = JSON.stringify(access_token);
+
+            sessionStorage.access = JSON.stringify(access_token);
 
        // console.log("AT "+access_token);
+       console.log("running4");
 
-        if (access_token && (state == null || state !== storedState)) {
-          console.log(access_token);
-          console.log(state);
-        //  alert('There was an error during the authentication');//
+       if (access_token && (state == null || state !== storedState)) {
+        //  console.log(access_token);
+         // console.log(state);
+          alert('There was an error during the authentication');//
         } else {
           //remove stateKey from local storage
           localStorage.removeItem(stateKey);
@@ -128,43 +155,45 @@
           if (access_token) {
             console.log("access_token exists");
             $.ajax({
-                url: 'https://api.spotify.com/v1/me',
-                headers: {
-                  'Authorization': 'Bearer ' + access_token
-                },
-                success: function(response) {
-                  userProfilePlaceholder.innerHTML = userProfileTemplate(response);
-                  sessionStorage.userId = JSON.stringify(response.id);
-                  $('#login').hide();
-                  $('#loggedin').show();
-                }
+              url: 'https://api.spotify.com/v1/me',
+              headers: {
+                'Authorization': 'Bearer ' + access_token
+              },
+              error: "Error!",
+              success: function(response) {
+                userProfilePlaceholder.innerHTML = userProfileTemplate(response);
+                sessionStorage.userId = JSON.stringify(response.id);
+                $('#login').hide();
+                $('#loggedin').show();
+              }
             });
           } else {
             console.log("no access " + access_token);
-              $('#login').show();
-              $('#loggedin').hide();
+            $('#login').show();
+            $('#loggedin').hide();
           }
 
           document.getElementById('login-button').addEventListener('click', function() {
 
             var client_id = '29c07facce49487e810599c1d0acc975'; // Your client id
-        //    var redirect_uri = 'http://localhost:8888'; // "https://ianmcdermott.github.io/metley/public/"; //
+          //  var redirect_uri = 'http://localhost:8888'; // 
             var redirect_uri = "https://ianmcdermott.github.io/metley/public/"; //
 
-            var state = generateRandomString(16);
+       var state = generateRandomString(16);
 
-            localStorage.setItem(stateKey, state);
-            var scope = 'playlist-read-private playlist-modify playlist-modify-private';
+       localStorage.setItem(stateKey, state);
+       var scope = 'playlist-read-private playlist-modify playlist-modify-private';
 
-            var url = 'https://accounts.spotify.com/authorize';
-            url += '?response_type=token';
-            url += '&client_id=' + encodeURIComponent(client_id);
-            url += '&scope=' + encodeURIComponent(scope);
-            url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
-            url += '&state=' + encodeURIComponent(state);
-            window.location = url;
-          }, false);
+       var url = 'https://accounts.spotify.com/authorize';
+       url += '?response_type=token';
+       url += '&client_id=' + encodeURIComponent(client_id);
+       url += '&scope=' + encodeURIComponent(scope);
+       url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
+       url += '&state=' + encodeURIComponent(state);
+       window.location = url;
+     }, false);
         }
       })();
     </script>
-</html>
+  </body>
+  </html>

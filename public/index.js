@@ -1,6 +1,6 @@
 const SPOTIFY_AUTHORIZE_URL = "https://accounts.spotify.com/authorize"
 const SPOTIFY_CATEGORY_URL = "https://api.spotify.com/v1/browse/categories"
-let AUTHORIZATION_CODE = "BQD_SyLUeocxLxr2jCK5-4h7TgEpB4DEcfbCkB2qlOQJusT76q1JAtRx0AQDx7CxtANevlZrvVQHwxAihEu6dg";
+let AUTHORIZATION_CODE = "BQCPViDA8xh91vCK0XXvfLwktq2xSjAGqysRa5TOXU7D20jJRNHcUJbgCfWcaFYtbSnsvBkL-T89Tzd0AZjjTA";
 const WMATA_DELAY_URL = "https://api.wmata.com/Incidents.svc/json/Incidents";
 const WMATA_STATIONS_URL = "https://api.wmata.com/Rail.svc/json/jStations";
 const WMATA_STATION_TO_STATION_URL = "https://api.wmata.com/Rail.svc/json/jSrcStationToDstStationInfo"
@@ -68,16 +68,9 @@ function getLine(item, variable, key){
 }
 
 
-function calculateJourneyTime(){
-//	getWMATAStations(returnStationCode);
-	getWaitTime();	
-
-}
-
 //Adds Station Names to the Loc/Dest Menus
 function addStationNames(){
 	let stations = getWMATAStations(getStationID);
-//	$(clearSelectionBoxes);
 }
 
 function getWMATAStations(callback){
@@ -97,40 +90,39 @@ function getStationID(data){
 	});
 	station.sort();
 	for(let i=0; i < station.length; i++){
-		$("#location").append(`<option>${station[i]}</option>`);
+		$("#location").append(`<option class="js-station-option">${station[i]}</option>`);
 		$("#destination").append(`<option>${station[i]}</option>`);
 	};
 }
 
 
 ///////// ::::: :: : : WAIT TIME CALCULATIONS : : :: :::::: /////////
-//function that returns wait time
-function getWaitTime(){
-	//function that retrieves location's code*/
-	getWaitPredictionEndpoint(returnWaitTime);
-}
+	//function that retrieves location's code
+	function getWaitTime(){
+		getWaitPredictionEndpoint(returnWaitTime);
+	}
 
 //gets wait time from Predictions API
 function getWaitPredictionEndpoint(callback){
 	let params = {
-            "api_key": WMATA_KEY,
-        };
-     let settings = {
-        url: `https://api.wmata.com/StationPrediction.svc/json/GetPrediction/${fromCode}?`
-         + $.param(params),
-        type: "GET",
-        success: function(data){
-        	callback(data);
-        },
-    };
+		"api_key": WMATA_KEY,
+	};
+	let settings = {
+		url: `https://api.wmata.com/StationPrediction.svc/json/GetPrediction/${fromCode}?`
+		+ $.param(params),
+		type: "GET",
+		success: function(data){
+			callback(data);
+		},
+	};
 
-    $.ajax(settings);
+	$.ajax(settings);
 }
 
 //Get Time of Wait 
 function returnWaitTime(data){
 	for(let i = 0; i < data.Trains.length; i++){
-			waitTime = 0;//data.Trains[i].Min;
+		waitTime = 0;
 	}
 	getDelayTime();	
 }
@@ -143,7 +135,7 @@ function getDelayTime(){
 	$(".js-journey-form").submit(event => {
 		const destination = $("#destination")
 	})
-	getDelayPredictionAPI(returnDelayTime); //placeholder
+	getDelayPredictionAPI(returnDelayTime); 
 }
 //gets API data from incidents API
 function getDelayPredictionAPI(callback){
@@ -180,8 +172,8 @@ function getTripPredictionAPI(callback){
 		url: `https://api.wmata.com/Rail.svc/json/jSrcStationToDstStationInfo?${query}`,
 		success: callback,
 	//	async: false
-	};
-	$.ajax(settings);
+};
+$.ajax(settings);
 }
 
 //Return the Railtime of the first/only item in Station to Station Info
@@ -217,8 +209,8 @@ function getSpotifyPlaylist(callback, category){
 		success: callback,
 		error: "Error getting playlist"
 	//	async: false
-	};
-	$.ajax(settings)
+};
+$.ajax(settings)
 }
 
 
@@ -233,7 +225,6 @@ function getPlaylistTracks(callback, playlistID){
 		url: `https://api.spotify.com/v1/users/Spotify/playlists/${playlistID}/tracks`,
 		headers: {'Authorization': "Bearer "+ AUTHORIZATION_CODE},
 		success: callback,
-	//	async: false
 	};
 	$.ajax(settings);
 }
@@ -259,17 +250,16 @@ function filterTracks(callback, trackID, trackName){
 	//comma-separated track ID's
 	let stringOfTracks = [];
 	TRACK_IDS.forEach(item => stringOfTracks.push(item.id));
-
+	console.log(`${stringOfTracks.toString()}`);
 	const settings = {
 		headers: {'Authorization': "Bearer "+ AUTHORIZATION_CODE},
 		url: `https://api.spotify.com/v1/audio-features/?ids=${stringOfTracks.toString()}`,
 		success: function(data){
 			callback(data, trackName);
 		},
+		error: "filterTracks error"
 	}; 
-	$.ajaxSetup({
-   		cache: false
-	});
+
 	$.ajax(settings);
 }
 
@@ -278,21 +268,23 @@ function parseKey(data, trackName){
 	//loop through array from multi-track audio features api
 	for(let i = 0; i < data.audio_features.length; i++){
 		//check if song is the same key
-		if(data.audio_features[i].key === musicKey){
-			//check if there's still time to be added to playlist
-			if(playlistTime < parseInt(totalTime*60000+60000)){
-				MASTER_TRACKLIST.push(data.audio_features[i]);
-				MASTER_TRACKLIST[MASTER_TRACKLIST.length-1].name = TRACK_IDS[i].name;
-				playlistTime += data.audio_features[i].duration_ms;	
-				updateProgress(Math.round(playlistTime/parseInt(totalTime*60000+60000)));
+		if(data.audio_features[i] !== null){
+			if(data.audio_features[i].key === musicKey){
+				//check if there's still time to be added to playlist
+				if(playlistTime < parseInt(totalTime*60000+60000)){
+					MASTER_TRACKLIST.push(data.audio_features[i]);
+					MASTER_TRACKLIST[MASTER_TRACKLIST.length-1].name = TRACK_IDS[i].name;
+					playlistTime += data.audio_features[i].duration_ms;	
+					updateProgress(Math.round(playlistTime/parseInt(totalTime*60000+60000)));
 
-			} else {
-				updateProgress(1);
-				sortByEnergy();
-				createPlaylist(addTracksToPlaylist);
-				break;
-			}
-		}	
+				} else {
+					updateProgress(1);
+					sortByEnergy();
+					createPlaylist(addTracksToPlaylist);
+					break;
+				}
+			}	
+		}
 	}
 	playlistLoop+=1;
 	getSpotifyPlaylist(getPlaylistItems, desiredMood);
@@ -358,11 +350,10 @@ function addTracksToPlaylist(data, callback){
 	let tracksString = tracks.join(",spotify:track:");
 	
 	var url = 'https://api.spotify.com/v1/users/' + spotifyUserId +
-		'/playlists/' + playlistId +
-		'/tracks?uris='+encodeURIComponent("spotify:track:"+tracksString);
+	'/playlists/' + playlistId +
+	'/tracks?uris='+encodeURIComponent("spotify:track:"+tracksString);
 	$.ajax(url, {
 		method: 'POST',
-		//data: {'uris':'tracksString'},
 		dataType: 'text',
 		headers: {
 			'Authorization': 'Bearer ' + AUTHORIZATION_CODE,
@@ -392,15 +383,18 @@ function renderPlaylist(songs){
 		let duration = convertTrackTime(item.duration_ms);
 		$(".js-playlist").append(`
 			<div class="js-playlist-entry">
-				<p class="js-song-name">${item.name}</p>
-				<p class="js-song-time">${duration}</p>
+			<p class="js-song-name">${item.name}</p>
+			<p class="js-song-time">${duration}</p>
 			</div>	
-		`);
+			`);
 	});
 }
 
 function convertTrackTime(trackDuration){
-	return Math.floor(trackDuration/60000)+":"+Math.ceil(((trackDuration/60000) % 1)*60);
+	let seconds = String(Math.ceil(((trackDuration/60000) % 1)*60));
+	console.log("s length is "+seconds.length);
+	if(seconds.length == 1) seconds+="0";
+	return Math.floor(trackDuration/60000)+":"+ seconds;
 }
 
 ///////// ::::: :: : : Menu Item Methods : : :: :::::: /////////
@@ -454,7 +448,6 @@ function handleSubmit(){
 		toStation = $(this).find("#destination").val();
 		if(fromStation == toStation){
 			$(".warning").css("display", "block");
-		//	alert("Please make sure that your current station and destination are different.");
 		} else {
 			showProgress();
 		}
@@ -463,7 +456,7 @@ function handleSubmit(){
 		sessionStorage.mood = JSON.stringify(desiredMood);
 		sessionStorage.fromStation = JSON.stringify(fromStation);
 		sessionStorage.toStation = JSON.stringify(toStation);
-		calculateJourneyTime();
+		getWaitTime();
 		$(updatePlaylist);
 	});
 }
@@ -500,28 +493,14 @@ function updateProgress(percentage){
 	width = percentage;
 	if(width > 1) width = 1;
 	elem.style.width = percentage*100 + '%';
-		
+
 	
 }
 
 function runApp(){
-	runAuth();
 	addStationNames();
 	addCategoryNames();
 	handleSubmit();
 }
 
 $(runApp);
-
-
-//get wait time properly
-//Get total time properly
-//Get Destination/line
-//Fix Journey Details
-//Fix
-//Order the playlist
-
- function runAuth() {
-
-       
-}
