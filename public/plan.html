@@ -16,63 +16,58 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 </head>
-<body>
-	<video class="video" autoplay muted loop>
-		<source src="media/metleyback.mp4" type="video/mp4">
- 	<!-- <source src="media/demo.ogv" type="video/ogg">
- 		<source src="media/demo.webm" type="video/webm"> -->
- 		</video>
- 		<div class="wrapper container-fluid">
- 			<header class="row"><h1>Metley</h1></header>
- 			<main role="main" class="row">
- 				<h2>Plan Your Journey</h2>
- 				<form action="playlist.html" class="js-journey-form" id="js-journey-form">
- 					<fieldset></fieldset>
- 					<legend></legend>
- 					<div class="col-md-4">
- 						<label for="location">Set Your Current Station</label>
- 						<select id="location" name="location" placeholder=" " required>
- 						</select>
- 					</div>
+<body  class="tiles">
+	<div class="wrapper container-fluid">
+		<header class="row"><h1>Metley</h1></header>
+		<main role="main" class="row">
+			<h2>Plan Your Journey</h2>
+			<form action="playlist.html" class="js-journey-form" id="js-journey-form">
+				<fieldset></fieldset>
+				<legend>Plan Your Journey</legend>
+				<div class="col-md-4">
+					<label for="location">Set Your Current Station</label>
+					<select id="location" name="location" placeholder=" " required>
+					</select>
+				</div>
 
- 					<div class="col-md-4">
- 						<label for="destination">Set Your Destination</label>
- 						<select id="destination" name="destination">
- 						</select>
- 					</div>
+				<div class="col-md-4">
+					<label for="destination">Set Your Destination</label>
+					<select id="destination" name="destination">
+					</select>
+				</div>
 
- 					<div class="col-md-4">
- 						<label for="mood">Set Your Mood</label>
- 						<select id="mood" name="mood" >
- 						</select>
- 					</div>
- 					<div class="warning"><p>Please make sure that your current station and destination are different.</p></div>
- 					<button type="submit" class="submit col-md-4 col-md-offset-4" id="submit-btn">Submit</button>
- 				</form>
- 				<div class="js-playlist">
- 					
- 				</div>
- 			</main>
- 			<footer role="footer" class="row">
- 				<div><a href="about.html">About Metley</a></div>
- 				<div>&copy;Ian McDermott 2017</div>
- 			</footer>	
- 		</div>
- 		<div id="progress-wrapper" class="container-fluid">
- 			<div id="progress" class="col-sm-6">
- 				<div id="progress-bar"></div>
- 			</div>
- 		</div>
- 		<script
- 		src="https://code.jquery.com/jquery-3.2.1.js"
- 		integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
- 		crossorigin="anonymous">
- 	</script>
- 	<!-- Latest compiled and minified JavaScript -->
- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
- 	<script type="text/javascript" src="../app.js"></script>
+				<div class="col-md-4">
+					<label for="mood">Set Your Mood</label>
+					<select id="mood" name="mood" >
+					</select>
+				</div>
+				<div class="warning"><p>Please make sure that your current station and destination are different.</p></div>
+				<div class=" col-sm-4 col-sm-offset-4"><button type="submit" class="submit" id="submit-btn">Submit</button></div>
+			</form>
+			<div class="js-playlist">
 
- 	<script type="text/javascript" src="index.js"></script>
+			</div>
+		</main>
+		<footer role="footer" class="row">
+			<div id="about"><a href="about.html">About Metley</a></div>
+			<div>&copy;Ian McDermott 2017</div>
+		</footer>	
+	</div>
+	<div id="progress-wrapper" class="container-fluid">
+		<div id="progress" class="col-sm-6">
+			<div id="progress-bar"></div>
+		</div>
+	</div>
+	<script
+	src="https://code.jquery.com/jquery-3.2.1.js"
+	integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+	crossorigin="anonymous">
+</script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="../app.js"></script>
 
- </body>
- </html>
+<script type="text/javascript" src="index.js"></script>
+
+</body>
+</html>

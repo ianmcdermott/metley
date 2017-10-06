@@ -15,37 +15,32 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 </head>
-<body onload="renderJourney();">
-	<video class="video" autoplay muted loop>
-		<source src="media/metleyback.mp4" type="video/mp4">
- 	<!-- <source src="media/demo.ogv" type="video/ogg">
- 		<source src="media/demo.webm" type="video/webm"> -->
- 		</video>
- 		<div class="wrapper container-fluid">
- 			<header class="row"><h1>Metley</h1></header>
- 			<main role="main" class="row">
- 				<h2>Journey Details</h2>
- 				<p class="js-journey-description">A <span class="js-mood"></span> Journey from {Location} to {Destination}</p>
- 				<p class="js-wait-time"></p>
- 				<p class="js-trip-time"></p>
- 				<p class="js-delay-time"></p>
- 			</main>
- 			<div class="row">
- 				<div class="js-view-playlist-btn col-sm-6"><a href="playlist.html">View Playlist</a></div>
- 				<div class="js-new-journey-btn col-sm-6"><a href="index.html">Plan a new Journey</a></div>
- 			</div>
- 			<footer role="footer" class="row">
- 				<div><a href="about.html">About Metley</a></div>
- 				<div>&copy;Ian McDermott 2017</div>
- 			</footer>	
- 		</div>
- 		<script
- 		src="https://code.jquery.com/jquery-3.2.1.js"
- 		integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
- 		crossorigin="anonymous">
- 	</script>
- 	<!-- Latest compiled and minified JavaScript -->
- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
- 	<script type="text/javascript" src="index.js"></script>
- </body>
- </html>
+<body  class="tiles" onload="renderJourney();">
+	<div class="wrapper container-fluid">
+		<header class="row"><h1>Metley</h1></header>
+		<main role="main" class="row">
+			<h2>Journey Details</h2>
+			<p class="js-journey-description">A <span class="js-mood"></span> Journey from {Location} to {Destination}</p>
+			<p class="js-wait-time"></p>
+			<p class="js-trip-time"></p>
+			<p class="js-delay-time"></p>
+		</main>
+		<div>
+			<div class="js-blue-btn col-lg-6"><a href="playlist.html">View Playlist</a></div>
+			<div class="js-black-btn col-lg-6" id="plan"><a href="index.html">Plan a new Journey</a></div>
+		</div>
+		<footer role="footer" class="row">
+			<div id="about"><a href="about.html">About Metley</a></div>
+			<div>&copy;Ian McDermott 2017</div>
+		</footer>	
+	</div>
+	<script
+	src="https://code.jquery.com/jquery-3.2.1.js"
+	integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+	crossorigin="anonymous">
+</script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="index.js"></script>
+</body>
+</html>
