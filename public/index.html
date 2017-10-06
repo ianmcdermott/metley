@@ -23,9 +23,8 @@
 <body>
   <video class="video no-overflow" autoplay muted loop>
     <source src="media/metleyback.mp4" type="video/mp4">
-      <source src="media/metleyback.webm" type="video/webm">
-
-      </video>
+   <source src="media/metleyback.webm" type="video/webm">
+  </video>
       <div class="wrapper container-fluid no-overflow">
         <div class="row">
          <header class="col-sm-12"><h1>Metley</h1></header>
@@ -176,7 +175,7 @@
             $('#loggedin').css('display', 'none');
           }
 
-          document.getElementById('login-button').addEventListener('click', function() {
+          document.getElementById('login-button').on('click', function() {
 
             var client_id = '29c07facce49487e810599c1d0acc975'; // Your client id
            // var redirect_uri = 'http://localhost:8888'; // 
