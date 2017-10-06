@@ -18,6 +18,9 @@ body{
 	position: relative;
 	background-color: hsla(0,0%,0%,0.75);
 	padding: 5px;
+
+	background-image: url("media/tiles.png");
+	background-repeat: repeat;
 }
 
 main{
@@ -36,6 +39,12 @@ video {
 	margin: 0;
 	padding: 0;
 
+}
+
+@media (min-width: 768px) {
+	video{
+		display: none;
+	}
 }
 
 label{
