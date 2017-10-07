@@ -27,10 +27,10 @@
   </video>
       <div class="wrapper container-fluid no-overflow">
         <div class="row">
-         <header class="col-sm-12"><h1>Metley</h1></header>
-       </div>
-       <main id="login" role="main">
-        <button id="login-button" class="js-blue-btn">Log in with Spotify</button> 
+          <header class="col-sm-12"><h1>Metley</h1></header>
+        </div>
+      <main id="login" role="main" name="login">
+        <button id="loginbutton" class="js-blue-btn">Log in with Spotify</button> 
         <div class="col-sm-6 col-sm-offset-3"><h2>Don't have Spotify?</h2></div>
         <div class="col-sm-4 col-sm-offset-4 js-black-btn"><a href="https://www.spotify.com/us/signup/">Register here</a></div>  
       </main>
@@ -48,7 +48,7 @@
     </div>
 
 
-    <script id="user-profile-template" type="text/x-handlebars-template">
+    <script id="user-profile-template" name="user-profile-template" type="text/x-handlebars-template">
 
       <main role="main">
        <div>
@@ -170,12 +170,11 @@
               }
             });
           } else {
-            console.log("no access " + access_token);
             $('#login').css('display', 'block');
             $('#loggedin').css('display', 'none');
           }
 
-          document.getElementById('login-button').addEventListener('click', function() {
+          document.getElementById('loginbutton').addEventListener('click', function() {
 
             var client_id = '29c07facce49487e810599c1d0acc975'; // Your client id
            // var redirect_uri = 'http://localhost:8888'; // 
