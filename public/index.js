@@ -1,52 +1,52 @@
 const SPOTIFY_AUTHORIZE_URL = "https://accounts.spotify.com/authorize"
 const SPOTIFY_CATEGORY_URL = "https://api.spotify.com/v1/browse/categories"
-let AUTHORIZATION_CODE = "BQCPViDA8xh91vCK0XXvfLwktq2xSjAGqysRa5TOXU7D20jJRNHcUJbgCfWcaFYtbSnsvBkL-T89Tzd0AZjjTA";
+var AUTHORIZATION_CODE = "BQCPViDA8xh91vCK0XXvfLwktq2xSjAGqysRa5TOXU7D20jJRNHcUJbgCfWcaFYtbSnsvBkL-T89Tzd0AZjjTA";
 const WMATA_DELAY_URL = "https://api.wmata.com/Incidents.svc/json/Incidents";
 const WMATA_STATIONS_URL = "https://api.wmata.com/Rail.svc/json/jStations";
 const WMATA_STATION_TO_STATION_URL = "https://api.wmata.com/Rail.svc/json/jSrcStationToDstStationInfo"
 const STATION_CODE_URL = "https://api.wmata.com/Rail.svc/json/jStations/"
 
-let spotifyLink = ""
+var spotifyLink = ""
 
 const WMATA_KEY = "cc26ae8a817a4cb296f2a9a68f5b9c0a";
-let spotifyUserId = "";
+var spotifyUserId = "";
 
-let TRACK_IDS = [];
+var TRACK_IDS = [];
 const PLAYLIST = [];
-let MASTER_TRACKLIST = [];
-let playlistArray = [];
+var MASTER_TRACKLIST = [];
+var playlistArray = [];
 
-let musicKey = 0;
-let desiredMood = "";
+var musicKey = 0;
+var desiredMood = "";
 
-let waitTime = 0;
-let tripTime = 0;
-let delayTime = 0;
+var waitTime = 0;
+var tripTime = 0;
+var delayTime = 0;
 
-let playlistTime = 0;
+var playlistTime = 0;
 
-let fromStation = "";
-let toStation = "";
-let totalTime = 0;
-let masterTrackCount = 0;
-let toCode = "";
-let fromCode = "";
+var fromStation = "";
+var toStation = "";
+var totalTime = 0;
+var masterTrackCount = 0;
+var toCode = "";
+var fromCode = "";
 const stationItems = [];
-let lineColor = "";
-let playlistLoop = 0;
-let trackCount = 0;
-let firstPlaylist;
+var lineColor = "";
+var playlistLoop = 0;
+var trackCount = 0;
+var firstPlaylist;
 
 // 	====================================== * * * * * * WMATA API  * * * * * * ====================================== //
 //Add station names to the loc/dest options
 function getStationCode(fs, ts){
-	let tc = stationItems.find(function(item){
+	var tc = stationItems.find(function(item){
 		return getCode(item, ts, "Code");
 	});
-	let fc = stationItems.find(function(item){
+	var fc = stationItems.find(function(item){
 		return getCode(item, fs, "Code");
 	});
-	let lc = stationItems.find(function(item){
+	var lc = stationItems.find(function(item){
 		return getCode(item, fs, "LineCode1");
 	});
 
@@ -70,7 +70,7 @@ function getLine(item, variable, key){
 
 //Adds Station Names to the Loc/Dest Menus
 function addStationNames(){
-	let stations = getWMATAStations(getStationID);
+	var stations = getWMATAStations(getStationID);
 }
 
 function getWMATAStations(callback){
@@ -89,7 +89,7 @@ function getStationID(data){
 		stationItems.push(item);
 	});
 	station.sort();
-	for(let i=0; i < station.length; i++){
+	for(var i=0; i < station.length; i++){
 		$("#location").append(`<option class="js-station-option">${station[i]}</option>`);
 		$("#destination").append(`<option>${station[i]}</option>`);
 	};
@@ -116,7 +116,7 @@ function getDelayPredictionAPI(callback){
 
 //returns delay time as a number
 function returnDelayTime(data){
-	for(let incident in data.Incidents){
+	for(var incident in data.Incidents){
 		if(incident !== undefined){
 			if(lineColor === incident.LinesAffected){
 				delayTime = data.Incidents[0].PassengerDelay;
@@ -131,7 +131,7 @@ function returnDelayTime(data){
 ///////// ::::: :: : : TRIP TIME CALCULATIONS : : :: :::::: /////////
 //function that returns length of trip
 function getTripPredictionAPI(callback){
-	let query= `FromStationCode=${fromCode}&ToStationCode=${toCode}`;
+	var query= `FromStationCode=${fromCode}&ToStationCode=${toCode}`;
 
 	const settings = {	
 		headers: { "api_key": WMATA_KEY },
@@ -193,7 +193,7 @@ function getPlaylistTracks(callback, playlistID){
 //Put any object with track ID's and track names onto its own array
 function getTrackIDs(data){
 	TRACK_IDS = [];
-	for(let i = 0; i < data.items.length; i++){
+	for(var i = 0; i < data.items.length; i++){
 		TRACK_IDS.push({id: data.items[i].track.id, name: data.items[i].track.name});
 	}	
 
@@ -206,7 +206,7 @@ function getTrackIDs(data){
 function filterTracks(callback, trackID, trackName){
 	//Spotify's https://api.spotify.com/v1/audio-features endpoint can take up to 100
 	//comma-separated track ID's
-	let stringOfTracks = [];
+	var stringOfTracks = [];
 	TRACK_IDS.forEach(item => stringOfTracks.push(item.id));
 	const settings = {
 		headers: {'Authorization': "Bearer "+ AUTHORIZATION_CODE},
@@ -223,7 +223,7 @@ function filterTracks(callback, trackID, trackName){
 //Add song if key matches to give playlist a cohesive sound
 function parseKey(data, trackName){
 	//loop through array from multi-track audio features api
-	for(let i = 0; i < data.audio_features.length; i++){
+	for(var i = 0; i < data.audio_features.length; i++){
 		//check if song is the same key
 		if(data.audio_features[i] !== null){
 			if(data.audio_features[i].key === musicKey){
@@ -250,15 +250,15 @@ function parseKey(data, trackName){
 
 //order songs by lowest energy to highest so user has a gradual energy build in their listening experience
 function sortByEnergy(){
-	let sortingArray = [];
-	let newMaster = []
-	for(let i = 0; i < MASTER_TRACKLIST.length; i++){
+	var sortingArray = [];
+	var newMaster = []
+	for(var i = 0; i < MASTER_TRACKLIST.length; i++){
 		sortingArray.push(MASTER_TRACKLIST[i].energy)
 	}
 	sortingArray.sort((a, b)=> a-b);
 
-	for(let j = 0; j < sortingArray.length; j++){
-		for(let i = 0; i < MASTER_TRACKLIST.length; i++){
+	for(var j = 0; j < sortingArray.length; j++){
+		for(var i = 0; i < MASTER_TRACKLIST.length; i++){
 			if(MASTER_TRACKLIST[i].energy === sortingArray[j]){
 				newMaster.push(MASTER_TRACKLIST[i]);
 				break;
@@ -295,12 +295,12 @@ function createPlaylist(callback){
 function addTracksToPlaylist(data, callback){
 	sessionStorage.songs = JSON.stringify(MASTER_TRACKLIST); 
 
-	let playlistId = data.id;
-	let tracks = [];
-	for(let i = 0; i < MASTER_TRACKLIST.length; i++){
+	var playlistId = data.id;
+	var tracks = [];
+	for(var i = 0; i < MASTER_TRACKLIST.length; i++){
 		tracks.push(MASTER_TRACKLIST[i].id);
 	}
-	let tracksString = tracks.join(",spotify:track:");
+	var tracksString = tracks.join(",spotify:track:");
 	
 	var url = 'https://api.spotify.com/v1/users/' + spotifyUserId +
 	'/playlists/' + playlistId +
@@ -336,12 +336,12 @@ function renderPlaylist(songs){
 	
 	fromStation = JSON.parse(sessionStorage.fromStation);
 	toStation = JSON.parse(sessionStorage.toStation);
-	let mood = JSON.parse(sessionStorage.mood);
+	var mood = JSON.parse(sessionStorage.mood);
 	
 	$('.js-playlist-title').html(`<p>A ${mood} Journey from ${fromStation} to ${toStation}</p>`);
 	
 	songs.forEach(item => {
-		let duration = convertTrackTime(item.duration_ms);
+		var duration = convertTrackTime(item.duration_ms);
 		$(".js-playlist").append(`
 			<div class="js-playlist-entry">
 			<p class="js-song-name">${item.name}</p>
@@ -359,7 +359,7 @@ function renderPlaylist(songs){
 
 //Adds converts song times to minute:second format 
 function convertTrackTime(trackDuration){
-	let seconds = String(Math.ceil(((trackDuration/60000) % 1)*60));
+	var seconds = String(Math.ceil(((trackDuration/60000) % 1)*60));
 	//if there's a 0 in the one's place of the seconds, it will have been cleared, this adds back in
 	if(seconds.length == 1) seconds+="0";
 	return Math.floor(trackDuration/60000)+":"+ seconds;
@@ -370,7 +370,7 @@ function convertTrackTime(trackDuration){
 function addCategoryNames(){
 	AUTHORIZATION_CODE = JSON.parse(sessionStorage.access);
 	spotifyUserId = JSON.parse(sessionStorage.userId);
-	let categories = getSpotifyCategory(getCategoryID);
+	var categories = getSpotifyCategory(getCategoryID);
 }
 
 //Gets Category Data from Spotify API
@@ -387,9 +387,9 @@ function getSpotifyCategory(callback){
 function getCategoryID(data){
 	const category =  data.categories.items.map((item, index) => item.id);
 	category.sort();
-	let string;
-	let cat;
-	for(let i=0; i < category.length; i++){
+	var string;
+	var cat;
+	for(var i=0; i < category.length; i++){
 		if (category[i].indexOf('_') > -1){
 			string = category[i];
 			cat = string.replace("_", "-");
@@ -434,7 +434,7 @@ function handleSubmit(){
 
 //Updates/renders playlist in playlist page
 function updatePlaylist(){
-	let songs = JSON.parse(sessionStorage.getItem("songs"));
+	var songs = JSON.parse(sessionStorage.getItem("songs"));
 	$(renderPlaylist(songs));
 }
 
@@ -444,7 +444,7 @@ function renderJourney(){
 	delayTime = JSON.parse(sessionStorage.delayTime);
 	fromStation = JSON.parse(sessionStorage.fromStation);
 	toStation = JSON.parse(sessionStorage.toStation);
-	let mood = JSON.parse(sessionStorage.mood);
+	var mood = JSON.parse(sessionStorage.mood);
 
 	$(".js-journey-description").text(`A ${mood} Journey from ${fromStation} to ${toStation}`);
 	$(".js-trip-time").text(`Travel Time: ${tripTime}`);
@@ -458,8 +458,8 @@ function showProgress(){
 
 //Updates inside of Progress Bar
 function updateProgress(percentage){
-	let elem = document.getElementById('progress-bar');
-	let width = 1;
+	var elem = document.getElementById('progress-bar');
+	var width = 1;
 	console.log('progress running ' + percentage*100 + "%");
 	
 	width = percentage;

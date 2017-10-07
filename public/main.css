@@ -266,6 +266,10 @@ body .wrapper{
 	white-space: nowrap;
 }
 
+#loginbutton{
+	z-index: 3;
+}
+
 .submit{
 	display: block;
 	height: 50px;

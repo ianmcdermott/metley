@@ -30,7 +30,7 @@
           <header class="col-sm-12"><h1>Metley</h1></header>
         </div>
       <main id="login" role="main" name="login">
-        <button id="loginbutton" class="js-blue-btn">Log in with Spotify</button> 
+        <button id="login-button" class="js-blue-btn">Log in with Spotify</button> 
         <div class="col-sm-6 col-sm-offset-3"><h2>Don't have Spotify?</h2></div>
         <div class="col-sm-4 col-sm-offset-4 js-black-btn"><a href="https://www.spotify.com/us/signup/">Register here</a></div>  
       </main>
@@ -91,6 +91,7 @@
 <script>
   (function() {
    sessionStorage.setItem('firstPlaylist', 'true');
+        console.log("hello");
 
    var stateKey = 'spotify_auth_state';
    console.log("running1");
@@ -128,9 +129,12 @@
           return text;
         }
 
-        let userProfileSource = document.getElementById('user-profile-template').innerHTML;
-        let userProfileTemplate = Handlebars.compile(userProfileSource);
-        let userProfilePlaceholder = document.getElementById('user-profile');
+        console.log("Making userProfileSource variable");
+        var userProfileSource = document.getElementById('user-profile-template').innerHTML;
+        console.log("Making userProfileSource variable");
+
+        var userProfileTemplate = Handlebars.compile(userProfileSource);
+        var userProfilePlaceholder = document.getElementById('user-profile');
 
         var oauthSource = document.getElementById('oauth-template').innerHTML,
         oauthTemplate = Handlebars.compile(oauthSource),
@@ -146,7 +150,7 @@
             sessionStorage.access = JSON.stringify(access_token);
 
 
-            if (access_token && (state == null || state !== storedState)) {
+        if (access_token && (state == null || state !== storedState)) {
 
           alert('There was an error during the authentication');//
         } else {
@@ -174,19 +178,19 @@
             $('#loggedin').css('display', 'none');
           }
 
-          document.getElementById('loginbutton').addEventListener('click', function() {
+          document.getElementById('login-button').addEventListener('click', function() {
 
             var client_id = '29c07facce49487e810599c1d0acc975'; // Your client id
-           // var redirect_uri = 'http://localhost:8888'; // 
-            var redirect_uri = "https://ianmcdermott.github.io/metley/public/"; //
+            var redirect_uri = 'http://localhost:8888'; // 
+           // var redirect_uri = "https://ianmcdermott.github.io/metley/public/"; //
 
-           let state = generateRandomString(16);
+           var state = generateRandomString(16);
 
            localStorage.setItem(stateKey, state);
 
-           let scope = 'playlist-read-private playlist-modify playlist-modify-private';
+           var scope = 'playlist-read-private playlist-modify playlist-modify-private';
 
-           let url = 'https://accounts.spotify.com/authorize';
+           var url = 'https://accounts.spotify.com/authorize';
            url += '?response_type=token';
            url += '&client_id=' + encodeURIComponent(client_id);
            url += '&scope=' + encodeURIComponent(scope);
