@@ -121,6 +121,7 @@ div>h2{
 	margin-bottom: 40px;
 }
 
+
 body, div, .row, main{
 	border-radius: 10px;
 }
@@ -266,7 +267,7 @@ body .wrapper{
 	white-space: nowrap;
 }
 
-#loginbutton{
+#login-button{
 	z-index: 3;
 }
 
@@ -403,7 +404,7 @@ body .wrapper{
 
 
 #progress{
-	width: 100%;
+	width: 50%;
 	background-color: #ddd;
 	padding: 0;
 }
