@@ -24,6 +24,7 @@
  <video class="video no-overflow" autoplay muted loop>
     <source src="media/metleyback.mp4" type="video/mp4">
    <source src="media/metleyback.webm" type="video/webm">
+    <img id="alternative" src="alternative.jpg" />
   </video>
       <div class="wrapper container-fluid no-overflow">
         <div class="row">
@@ -181,8 +182,8 @@
           document.getElementById('login-button').addEventListener('click', function() {
 
             var client_id = '29c07facce49487e810599c1d0acc975'; // Your client id
-            var redirect_uri = 'http://localhost:8888'; // 
-           // var redirect_uri = "https://ianmcdermott.github.io/metley/public/"; //
+           // var redirect_uri = 'http://localhost:8888'; // 
+            var redirect_uri = "https://ianmcdermott.github.io/metley/public/"; //
 
            var state = generateRandomString(16);
 
