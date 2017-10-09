@@ -357,7 +357,7 @@ function renderPlaylist(songs){
 	});
 
 	//open the playlist in a new tab
-5	var newWin = window.open(spotifyLink);             		
+	var newWin = window.open(spotifyLink);             		
 		//Detect pop up blocker
 	if(!newWin || newWin.closed || typeof newWin.closed=='undefined'){ 
 		$(".js-playlist-title").before(`<div class="red"><p>Please disable your popup blocker to allow Spotify to open</p></div>`);
