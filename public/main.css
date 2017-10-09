@@ -330,6 +330,12 @@ body .wrapper{
 	color: #fff;
 }
 
+.red{
+	background-color: #f00;
+	color: #fff;
+	padding: 15px;
+}
+
 .media-object{
 	border-radius: 50%;
 	margin: 0 auto;

@@ -1,14 +1,13 @@
 const SPOTIFY_AUTHORIZE_URL = "https://accounts.spotify.com/authorize"
 const SPOTIFY_CATEGORY_URL = "https://api.spotify.com/v1/browse/categories"
-var AUTHORIZATION_CODE = "BQCPViDA8xh91vCK0XXvfLwktq2xSjAGqysRa5TOXU7D20jJRNHcUJbgCfWcaFYtbSnsvBkL-T89Tzd0AZjjTA";
+var AUTHORIZATION_CODE = "";
 const WMATA_DELAY_URL = "https://api.wmata.com/Incidents.svc/json/Incidents";
 const WMATA_STATIONS_URL = "https://api.wmata.com/Rail.svc/json/jStations";
 const WMATA_STATION_TO_STATION_URL = "https://api.wmata.com/Rail.svc/json/jSrcStationToDstStationInfo"
 const STATION_CODE_URL = "https://api.wmata.com/Rail.svc/json/jStations/"
 
 var spotifyLink = ""
-
-const WMATA_KEY = "cc26ae8a817a4cb296f2a9a68f5b9c0a";
+const WMATA_KEY = config.MY_WMATA_KEY;
 var spotifyUserId = "";
 
 var TRACK_IDS = [];
@@ -36,10 +35,12 @@ var lineColor = "";
 var playlistLoop = 0;
 var trackCount = 0;
 var firstPlaylist;
-
+var newSession = true;
+var mood = "";
 // 	====================================== * * * * * * WMATA API  * * * * * * ====================================== //
 //Add station names to the loc/dest options
 function getStationCode(fs, ts){
+	console.log("WMATA KEY IS "+WMATA_KEY );
 	var tc = stationItems.find(function(item){
 		return getCode(item, ts, "Code");
 	});
@@ -325,18 +326,23 @@ function addTracksToPlaylist(data, callback){
 function openPlaylist(data, link){
 	spotifyLink = link;
 	sessionStorage.link =  JSON.stringify(spotifyLink);
+	sessionStorage.access = JSON.stringify(AUTHORIZATION_CODE);
 	$("#js-journey-form").unbind().submit();
 }
 
 ///////// ::::: :: : : DOM RENDERING : : :: :::::: /////////
 //Render playlist to playlist page
 function renderPlaylist(songs){
+	AUTHORIZATION_CODE = JSON.parse(sessionStorage.access);
+
+	console.log("Auth code 2 is "+AUTHORIZATION_CODE )
+
 	spotifyLink = JSON.parse(sessionStorage.link);
 	firstPlaylist = JSON.parse(sessionStorage.firstPlaylist);
 	
 	fromStation = JSON.parse(sessionStorage.fromStation);
 	toStation = JSON.parse(sessionStorage.toStation);
-	var mood = JSON.parse(sessionStorage.mood);
+	mood = JSON.parse(sessionStorage.mood);
 	
 	$('.js-playlist-title').html(`<p>A ${mood} Journey from ${fromStation} to ${toStation}</p>`);
 	
@@ -351,10 +357,11 @@ function renderPlaylist(songs){
 	});
 
 	//open the playlist in a new tab
-	if(firstPlaylist == true){
-		window.open(spotifyLink);
-		sessionStorage.firstPlaylist = false;
-	}		
+5	var newWin = window.open(spotifyLink);             		
+		//Detect pop up blocker
+	if(!newWin || newWin.closed || typeof newWin.closed=='undefined'){ 
+		$(".js-playlist-title").before(`<div class="red"><p>Please disable your popup blocker to allow Spotify to open</p></div>`);
+	} 	
 }
 
 //Adds converts song times to minute:second format 
@@ -368,7 +375,9 @@ function convertTrackTime(trackDuration){
 ///////// ::::: :: : : Menu Item Methods : : :: :::::: /////////
 //Add category names to the mood options
 function addCategoryNames(){
+	console.log("addCategoryNames ran");
 	AUTHORIZATION_CODE = JSON.parse(sessionStorage.access);
+	console.log("Auth code is "+ AUTHORIZATION_CODE )
 	spotifyUserId = JSON.parse(sessionStorage.userId);
 	var categories = getSpotifyCategory(getCategoryID);
 }
@@ -405,12 +414,16 @@ function getCategoryID(data){
 function handleSubmit(){
 	$(".js-journey-form").submit(function(event){ 
 		event.preventDefault();
-
+		console.log("Auth code is "+ AUTHORIZATION_CODE);
 		//take session storage firstPlaylist variable and convert it to a variable local to index.js, since we're clearing session storage a few lines down 
 		//this will help detect if this is the browser's first generation fo the playlist, rather than  
 		firstPlaylist = JSON.parse(sessionStorage.firstPlaylist);
 		musicKey = Math.floor(Math.random()*12);
 		sessionStorage.clear();
+
+		sessionStorage.setItem('access', AUTHORIZATION_CODE);
+		sessionStorage.setItem('userId', spotifyUserId);
+
 		desiredMood = $(this).find("#mood").val(); 
 		fromStation = $(this).find("#location").val();
 		toStation = $(this).find("#destination").val();
@@ -469,10 +482,16 @@ function updateProgress(percentage){
 	
 }
 
+
+
 function runApp(){
-	addStationNames();
-	addCategoryNames();
-	handleSubmit();
+	//if(newSession){
+		addStationNames();
+		addCategoryNames();
+		newSession = false;
+//	}
+
+handleSubmit();
 }
 
 $(runApp);
