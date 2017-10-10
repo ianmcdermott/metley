@@ -93,6 +93,7 @@ function getStationID(data){
 	for(var i=0; i < station.length; i++){
 		$("#location").append('<option class="js-station-option">'+ station[i] + '</option>');
 		$("#destination").append(`<option>${station[i]}</option>`);
+		$(".js-test-pop").append(`<option>${station[i]}</option>`);
 	};
 }
 
