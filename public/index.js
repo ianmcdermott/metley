@@ -95,18 +95,18 @@ function getStationID(data){
 		$("#destination").append(`<option>${station[i]}</option>`);
 	};*/
 	function getStationID(data){
-
-	var station = '';
+	var stations = []
+	var stationName = '';
 	data.Stations.map(function(item, index){
-	//	station.push(item.Name);
+		stations.push(item.Name);
 		stationItems.push(item);
 	});
-	data.Stations.map(function(item, index){
-		station+= `<option>${item.Name}</option>`;
-	});
+	for(var i=0; i < stations.length; i++){
+		stationName+= `<option>${stations[i]}</option>`;
+	}
 	//station.sort();
-		$("#location").html(station);
-		$("#destination").html(station);
+		$("#location").html(stationName);
+		$("#destination").html(stationName);
 	/*
 	for(var i=0; i < station.length; i++){
 		$("#location").html(`<option>${station[i]}</option>`);
