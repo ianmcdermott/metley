@@ -94,7 +94,6 @@ function getStationID(data){
 		$("#location").append(`<option>${station[i]}</option>`);
 		$("#destination").append(`<option>${station[i]}</option>`);
 	};*/
-	function getStationID(data){
 	var stations = []
 	var stationName = '';
 	data.Stations.map(function(item, index){
