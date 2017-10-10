@@ -94,7 +94,7 @@ function getStationID(data){
 		station+= `<option>${item.Name}</option>`;
 	});
 	//station.sort();
-	alert("populating");
+	alert(station);
 		$("#location").html(station);
 		$("#destination").html(station);
 	/*
