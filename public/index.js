@@ -84,7 +84,7 @@ function getWMATAStations(callback){
 }
 
 function getStationID(data){
-	const station = [];
+	var station = [];
 	data.Stations.map(function(item, index){
 		station.push(item.Name);
 		stationItems.push(item);
@@ -93,7 +93,6 @@ function getStationID(data){
 	for(var i=0; i < station.length; i++){
 		$("#location").append('<option class="js-station-option">'+ station[i] + '</option>');
 		$("#destination").append(`<option>${station[i]}</option>`);
-		$(".js-test-pop").append(`<option>${station[i]}</option>`);
 	};
 }
 
