@@ -84,6 +84,7 @@ function getWMATAStations(callback){
 }
 
 function getStationID(data){
+
 	var station = '';
 	data.Stations.map(function(item, index){
 	//	station.push(item.Name);
@@ -93,6 +94,7 @@ function getStationID(data){
 		station+= `<option>${item.Name}</option>`;
 	});
 	//station.sort();
+	alert("populating");
 		$("#location").html(station);
 		$("#destination").html(station);
 	/*
