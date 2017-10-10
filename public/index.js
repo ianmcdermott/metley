@@ -94,7 +94,6 @@ function getStationID(data){
 		station+= `<option>${item.Name}</option>`;
 	});
 	//station.sort();
-	alert(station);
 		$("#location").html(station);
 		$("#destination").html(station);
 	/*
@@ -490,16 +489,10 @@ function updateProgress(percentage){
 	
 }
 
-
-
 function runApp(){
-	try{
-		addStationNames();
-		addCategoryNames();
-		handleSubmit();
-	} catch(err){
-		alert(JSON.stringify(err));
-	}
+	addStationNames();
+	addCategoryNames();
+	handleSubmit();
 }
 
 $(runApp);
