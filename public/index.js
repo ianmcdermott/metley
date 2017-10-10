@@ -493,9 +493,13 @@ function updateProgress(percentage){
 
 
 function runApp(){
-	addStationNames();
-	addCategoryNames();
-	handleSubmit();
+	try{
+		addStationNames();
+		addCategoryNames();
+		handleSubmit();
+	} catch(err){
+		alert(JSON.stringify(err));
+	}
 }
 
 $(runApp);
