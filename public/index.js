@@ -84,7 +84,7 @@ function getWMATAStations(callback){
 }
 
 function getStationID(data){
-	var station = [];
+	var station = '';
 	data.Stations.map(function(item, index){
 	//	station.push(item.Name);
 		stationItems.push(item);
