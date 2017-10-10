@@ -6,16 +6,16 @@
 	<meta name="description" content="Make a Spotify Playlist the length of your train journey!">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<link href="main.css" rel="stylesheet" type="text/css" />
 	<link href="/meyerreset.css" rel="stylesheet" type="text/css">
 
-	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<!-- Latest compiled and minified CSS -->
-	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<!-- Optional theme -->
-	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
-	<!--<link href="main.css" rel="stylesheet" type="text/css" />-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 </head>
 <body>
@@ -26,21 +26,22 @@
 			<form action="playlist.html" class="js-journey-form" id="js-journey-form">
 				<fieldset></fieldset>
 				<legend>Plan Your Journey</legend>
-				<div class="col-md-4" >
+				<div class="col-md-4">
 					<label for="location">Set Your Current Station</label>
-					<select id="location" name="location" placeholder=" " class="select" required>
+					<select id="location" name="location" placeholder=" " required>
 					</select>
 				</div>
 
 				<div class="col-md-4">
 					<label for="destination">Set Your Destination</label>
-					<select id="destination" name="destination" class="select">
+					<select id="destination" name="destination">
+						<option> Hello </option>
 					</select>
 				</div>
 
 				<div class="col-md-4">
 					<label for="mood">Set Your Mood</label>
-					<select id="mood" name="mood" class="select" >
+					<select id="mood" name="mood" >
 					</select>
 				</div>
 				<div class="warning"><p>Please make sure that your current station and destination are different.</p></div>
