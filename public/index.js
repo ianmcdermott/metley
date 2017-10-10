@@ -91,7 +91,7 @@ function getStationID(data){
 	});
 	station.sort();
 	for(var i=0; i < station.length; i++){
-		$("#location").html(`<option>${station[i]}</option>`);
+		$("#location").append(`<option>${station[i]}</option>`);
 		$("#destination").append(`<option>${station[i]}</option>`);
 	};
 	/*function getStationID(data){
