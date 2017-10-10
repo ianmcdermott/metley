@@ -100,6 +100,7 @@ function getStationID(data){
 		stations.push(item.Name);
 		stationItems.push(item);
 	});
+	stations.sort();
 	for(var i=0; i < stations.length; i++){
 		stationName+= `<option>${stations[i]}</option>`;
 	}
