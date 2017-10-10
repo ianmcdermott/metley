@@ -86,14 +86,20 @@ function getWMATAStations(callback){
 function getStationID(data){
 	var station = [];
 	data.Stations.map(function(item, index){
-		station.push(item.Name);
+	//	station.push(item.Name);
 		stationItems.push(item);
 	});
+	data.Stations.map(function(item, index){
+		station+= `<option>${item.Name}</option>`;
+	});
 	station.sort();
+		$("#location").html(station);
+		$("#destination").html(station);
+	/*
 	for(var i=0; i < station.length; i++){
-		$("#location").append('<option class="js-station-option">'+ station[i] + '</option>');
+		$("#location").html(`<option>${station[i]}</option>`);
 		$("#destination").append(`<option>${station[i]}</option>`);
-	};
+	};*/
 }
 
 ///////// ::::: :: : : DELAY TIME CALCULATIONS : : :: :::::: /////////
