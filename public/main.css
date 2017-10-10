@@ -167,6 +167,10 @@ body .wrapper{
  	pointer-events: auto;
  }
 
+select.select {
+    -webkit-appearance: menulist;
+}
+
 
 .journey-description{
 	width: 80%;
