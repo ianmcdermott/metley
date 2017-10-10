@@ -35,7 +35,6 @@ var lineColor = "";
 var playlistLoop = 0;
 var trackCount = 0;
 var firstPlaylist;
-var newSession = true;
 var mood = "";
 // 	====================================== * * * * * * WMATA API  * * * * * * ====================================== //
 //Add station names to the loc/dest options
@@ -486,15 +485,9 @@ function updateProgress(percentage){
 
 
 function runApp(){
-	//if(newSession){
-							$("#location").append('<option>Habbo</option>');
-
-		addStationNames();
-		addCategoryNames();
-		newSession = false;
-//	}
-
-handleSubmit();
+	addStationNames();
+	addCategoryNames();
+	handleSubmit();
 }
 
 $(runApp);
