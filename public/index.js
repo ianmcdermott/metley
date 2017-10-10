@@ -92,7 +92,7 @@ function getStationID(data){
 	data.Stations.map(function(item, index){
 		station+= `<option>${item.Name}</option>`;
 	});
-	station.sort();
+	//station.sort();
 		$("#location").html(station);
 		$("#destination").html(station);
 	/*
