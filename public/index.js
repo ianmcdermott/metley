@@ -415,7 +415,6 @@ function getCategoryID(data){
 function handleSubmit(){
 	$(".js-journey-form").submit(function(event){ 
 		event.preventDefault();
-					$("#location").append('<option>Habbo</option>');
 
 		//take session storage firstPlaylist variable and convert it to a variable local to index.js, since we're clearing session storage a few lines down 
 		//this will help detect if this is the browser's first generation fo the playlist, rather than  
@@ -488,6 +487,8 @@ function updateProgress(percentage){
 
 function runApp(){
 	//if(newSession){
+							$("#location").append('<option>Habbo</option>');
+
 		addStationNames();
 		addCategoryNames();
 		newSession = false;
