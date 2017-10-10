@@ -85,7 +85,6 @@ function getWMATAStations(callback){
 
 function getStationID(data){
 	var station = [];
-	$("#location").append('<option class="js-station-option"> Hiya </option>').listview("refresh");;
 	data.Stations.map(function(item, index){
 		station.push(item.Name);
 		stationItems.push(item);
