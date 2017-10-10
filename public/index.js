@@ -92,7 +92,7 @@ function getStationID(data){
 	});
 	station.sort();
 	for(var i=0; i < station.length; i++){
-		$("#location").append('<option class="js-station-option">'+ station[i] + '</option>');
+		$("#location").append('<option class="js-station-option">'+ station[i] + '</option>').listview("refresh");
 		$("#destination").append(`<option>${station[i]}</option>`);
 	};
 }
