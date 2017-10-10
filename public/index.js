@@ -85,11 +85,12 @@ function getWMATAStations(callback){
 
 function getStationID(data){
 	var station = [];
+	$("#location").append('<option class="js-station-option"> Hiya </option>');
 	data.Stations.map(function(item, index){
 		station.push(item.Name);
 		stationItems.push(item);
 	});
-//	station.sort();
+	station.sort();
 	for(var i=0; i < station.length; i++){
 		$("#location").append('<option class="js-station-option">'+ station[i] + '</option>');
 		$("#destination").append(`<option>${station[i]}</option>`);
