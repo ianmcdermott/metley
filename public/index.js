@@ -71,6 +71,8 @@ function getLine(item, variable, key){
 
 //Adds Station Names to the Loc/Dest Menus
 function addStationNames(){
+			$("#location").append('<option>Habbo</option>');
+
 	var stations = getWMATAStations(getStationID);
 }
 
@@ -91,7 +93,7 @@ function getStationID(data){
 	});
 	station.sort();
 	for(var i=0; i < station.length; i++){
-		$("#location").appendTo('<option class="js-station-option">'+ station[i] + '</option>');
+		$("#location").append('<option class="js-station-option">'+ station[i] + '</option>');
 		$("#destination").append(`<option>${station[i]}</option>`);
 	};
 }
