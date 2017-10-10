@@ -71,7 +71,6 @@ function getLine(item, variable, key){
 
 //Adds Station Names to the Loc/Dest Menus
 function addStationNames(){
-			$("#location").append('<option>Habbo</option>');
 
 	var stations = getWMATAStations(getStationID);
 }
@@ -416,7 +415,8 @@ function getCategoryID(data){
 function handleSubmit(){
 	$(".js-journey-form").submit(function(event){ 
 		event.preventDefault();
-		console.log("Auth code is "+ AUTHORIZATION_CODE);
+					$("#location").append('<option>Habbo</option>');
+
 		//take session storage firstPlaylist variable and convert it to a variable local to index.js, since we're clearing session storage a few lines down 
 		//this will help detect if this is the browser's first generation fo the playlist, rather than  
 		firstPlaylist = JSON.parse(sessionStorage.firstPlaylist);
