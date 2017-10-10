@@ -161,6 +161,12 @@ body .wrapper{
 
 }
 
+ [data-toggle=buttons]>.btn input[type=checkbox],[data-toggle=buttons]>.btn input[type=radio],[data-toggle=buttons]>.btn-group>.btn input[type=checkbox],[data-toggle=buttons]>.btn-group>.btn input[type=radio]{
+ 	position:absolute;
+ 	clip: auto;
+ 	pointer-events: auto;
+ }
+
 
 .journey-description{
 	width: 80%;
