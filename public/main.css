@@ -5,12 +5,22 @@ html{
 	bottom: 0;
 }
 
+html,
+body,
+div,
+h1,
+p,
+a
+video {
+	margin: 0;
+	padding: 0;
+
+}
+
 *, *:before, *:after{
 	box-sizing: inherit;
 	font-family: "Helvetica", sans-serif;
 }
-
-
 
 body{
 	padding: 10px;
@@ -29,17 +39,6 @@ main{
 	color: #fff;
 }
 
-html,
-body,
-div,
-h1,
-p,
-a
-video {
-	margin: 0;
-	padding: 0;
-
-}
 
 @media only screen and (max-width: 768px) {
 	video{
@@ -75,8 +74,6 @@ select{
 	text-align: center;
 }
 
-
-
 main select{
 	color: #000;
 	font-size: 16px;
@@ -97,6 +94,10 @@ option{
 
 }
 
+body, div, .row, main{
+	border-radius: 10px;
+}
+
 div a{
 	text-decoration: none;
 	display: block;
@@ -105,13 +106,6 @@ div a{
 	color: #fff;
 }
 
-html,
-h1,
-a,
-video {
-	margin: 0;
-	padding: 0;
-}
 
 div>h2{
 	display: block;
@@ -120,10 +114,6 @@ div>h2{
 	margin-bottom: 40px;
 }
 
-
-body, div, .row, main{
-	border-radius: 10px;
-}
 
 footer>div{
 	margin-top: 10px;
@@ -155,10 +145,6 @@ body .wrapper{
 	display: block;
 	width: 100%;
 	padding: 0 30px 30px 30px;
-}
-
-.js-station-option{
-
 }
 
 .journey-description{
@@ -263,10 +249,6 @@ body .wrapper{
 	white-space: nowrap;
 }
 
-#login-button{
-	z-index: 3;
-}
-
 .submit{
 	display: block;
 	height: 50px;
@@ -296,30 +278,6 @@ body .wrapper{
 	display:none;
 }
 
-
-.js-now-playing-btn:hover, .js-view-playlist-btn:hover, .js-new-journey-btn:hover, .js-now-playing-btn:hover, .js-view-playlist-btn:hover, .js-view-journey-btn:hover{
-	height: 50px;
-	background-color: #02BB4F;
-	float: left;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: #000;
-	
-	
-}
-
-.js-now-playing-btn:hover>a, .js-view-playlist-btn:hover>a, .js-new-journey-btn:hover>a, .js-now-playing-btn:hover>a, .js-view-playlist-btn:hover>a, .js-view-journey-btn:hover>a{
-	text-decoration: none;
-	color: #000;
-	
-	position: absolute;
-	top: 50%; left: 50%;
-	transform: translate(-50%, -25%);
-}
-
-
-
 .warning{
 	display: none;
 	background-color: #f00;
@@ -339,8 +297,6 @@ body .wrapper{
 	float: none;
 }
 
-
-
 .video{
 	position: static;
 	z-index: 1;
@@ -355,7 +311,6 @@ body .wrapper{
 	overflow: hidden;
 
 }
-
 
 .navigation{
 	padding: 10px;	
@@ -404,7 +359,6 @@ body .wrapper{
 	z-index: 2;
 }
 
-
 #progress{
 	width: 50%;
 	background-color: #ddd;
@@ -423,4 +377,8 @@ body .wrapper{
 
 #about{
 	margin-top: 10px;
+}
+
+#login-button{
+	z-index: 3;
 }
