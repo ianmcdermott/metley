@@ -4,9 +4,9 @@
 	<title>Metley Journey</title>
 	<meta name="description" content="Make a Spotify Playlist the length of your train journey!">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/meyerreset.css" rel="stylesheet" type="text/css">
 
 	<link href="main.css" rel="stylesheet" type="text/css" />
-	<link href="/meyerreset.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 
@@ -18,8 +18,10 @@
 
 </head>
 <body  onload="renderJourney();">
-	<div class="wrapper container-fluid">
-		<header class="row"><h1>Metley</h1></header>
+	<div class="wrapper  no-overflow">
+      
+          <header><h1>Metley</h1></header>
+      
 		<main role="main" class="row">
 			<h2>Journey Details</h2>
 			<p class="js-journey-description">A <span class="js-mood"></span> Journey from {Location} to {Destination}</p>
@@ -27,9 +29,12 @@
 			<p class="js-trip-time"></p>
 			<p class="js-delay-time"></p>
 		</main>
-		<div>
-			<div class="js-blue-btn col-lg-6"><a href="playlist.html">View Playlist</a></div>
-			<div class="js-black-btn col-lg-6" id="plan"><a href="plan.html">Plan a new Journey</a></div>
+		<div class="center">
+			<div>
+				<div class="js-green-btn col-lg-6"><a href="playlist.html">View Playlist</a></div>
+				<div class="js-black-btn col-lg-6" id="plan"><a href="plan.html">Plan a new Journey</a>
+				</div>
+			</div>
 		</div>
 		<footer role="footer" class="row">
 			<div id="about"><a href="about.html">About Metley</a></div>

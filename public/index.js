@@ -1,12 +1,12 @@
 const SPOTIFY_AUTHORIZE_URL = "https://accounts.spotify.com/authorize"
 const SPOTIFY_CATEGORY_URL = "https://api.spotify.com/v1/browse/categories"
-var AUTHORIZATION_CODE = "";
+var AUTHORIZATION_CODE;
 const WMATA_DELAY_URL = "https://api.wmata.com/Incidents.svc/json/Incidents";
 const WMATA_STATIONS_URL = "https://api.wmata.com/Rail.svc/json/jStations";
 const WMATA_STATION_TO_STATION_URL = "https://api.wmata.com/Rail.svc/json/jSrcStationToDstStationInfo"
 const STATION_CODE_URL = "https://api.wmata.com/Rail.svc/json/jStations/"
 
-var spotifyLink = ""
+var spotifyLink = "";
 const WMATA_KEY = "e1eee2b5677f408da40af8480a5fd5a8";
 var spotifyUserId = "";
 
@@ -36,10 +36,10 @@ var playlistLoop = 0;
 var trackCount = 0;
 var firstPlaylist;
 var mood = "";
+var playlistId = "";
 // 	====================================== * * * * * * WMATA API  * * * * * * ====================================== //
 //Add station names to the loc/dest options
 function getStationCode(fs, ts){
-	console.log("WMATA KEY IS "+WMATA_KEY );
 	var tc = stationItems.find(function(item){
 		return getCode(item, ts, "Code");
 	});
@@ -214,16 +214,16 @@ function getPlaylistTracks(callback, playlistID){
 function getTrackIDs(data){
 	TRACK_IDS = [];
 	for(var i = 0; i < data.items.length; i++){
-		TRACK_IDS.push({id: data.items[i].track.id, name: data.items[i].track.name});
+		TRACK_IDS.push({id: data.items[i].track.id, name: data.items[i].track.name, artist: data.items[i].track.album.artists[0].name});
 	}	
 
 	//Now that we have the API data, time to organize
-	filterTracks(parseKey, TRACK_IDS.id, TRACK_IDS.name); 
+	filterTracks(parseKey, TRACK_IDS.id, TRACK_IDS.name, TRACK_IDS.artist); 
 }
 
 ///////// ::::: :: : : PLAYLIST SORTING ALGORITHMS : : :: :::::: /////////
 //get the Audio features from first tracks in list
-function filterTracks(callback, trackID, trackName){
+function filterTracks(callback, trackID, trackName, trackArtist){
 	//Spotify's https://api.spotify.com/v1/audio-features endpoint can take up to 100
 	//comma-separated track ID's
 	var stringOfTracks = [];
@@ -232,7 +232,7 @@ function filterTracks(callback, trackID, trackName){
 		headers: {'Authorization': "Bearer "+ AUTHORIZATION_CODE},
 		url: `https://api.spotify.com/v1/audio-features/?ids=${stringOfTracks.toString()}`,
 		success: function(data){
-			callback(data, trackName);
+			callback(data, trackName,trackArtist);
 		},
 		error: "filterTracks error"
 	}; 
@@ -241,7 +241,7 @@ function filterTracks(callback, trackID, trackName){
 }
 
 //Add song if key matches to give playlist a cohesive sound
-function parseKey(data, trackName){
+function parseKey(data, trackName, trackArtist){
 	//loop through array from multi-track audio features api
 	for(var i = 0; i < data.audio_features.length; i++){
 		//check if song is the same key
@@ -251,6 +251,7 @@ function parseKey(data, trackName){
 				if(playlistTime < parseInt(totalTime*60000+60000)){
 					MASTER_TRACKLIST.push(data.audio_features[i]);
 					MASTER_TRACKLIST[MASTER_TRACKLIST.length-1].name = TRACK_IDS[i].name;
+					MASTER_TRACKLIST[MASTER_TRACKLIST.length-1].artist = TRACK_IDS[i].artist;
 					playlistTime += data.audio_features[i].duration_ms;	
 					updateProgress(playlistTime/parseInt(totalTime*60000+60000));
 
@@ -290,32 +291,34 @@ function sortByEnergy(){
 
 //Create the playlist on user's spotify account
 function createPlaylist(callback){
-	var url = 'https://api.spotify.com/v1/users/' + spotifyUserId + '/playlists';
-	$.ajax(url, {
-		method: 'POST',
-		data: JSON.stringify({
-			'name': 'Metly: A ' + desiredMood + " Journey to " + toStation,
-			'public': false
-		}),
-		dataType: 'json',
-		headers: {
-			'Authorization': 'Bearer ' + AUTHORIZATION_CODE,
-			'Content-Type': 'application/json'
-		},
-		success: function(data) {
-			callback(data, openPlaylist);
-		},
-		error: function(data) {
-			callback(null);
-		}
-	});
+		var url = 'https://api.spotify.com/v1/users/' + spotifyUserId + '/playlists';
+		$.ajax(url, {
+			method: 'POST',
+			data: JSON.stringify({
+				'name': 'Metly: A ' + desiredMood + " Journey to " + toStation,
+				'public': false
+			}),
+			dataType: 'json',
+			headers: {
+				'Authorization': 'Bearer ' + AUTHORIZATION_CODE,
+				'Content-Type': 'application/json'
+			},
+			success: function(data) {
+				callback(data, openPlaylist);
+			},
+			error: function(data) {
+				callback(null);
+			}
+		});
 }
 
 //Add tracks to the playlist that now exists in user's account
 function addTracksToPlaylist(data, callback){
 	sessionStorage.songs = JSON.stringify(MASTER_TRACKLIST); 
+	sessionStorage.spotifyUserId = JSON.stringify(spotifyUserId);
 
-	var playlistId = data.id;
+	playlistId = data.id;
+	sessionStorage.playlistId =  JSON.stringify(playlistId);
 	var tracks = [];
 	for(var i = 0; i < MASTER_TRACKLIST.length; i++){
 		tracks.push(MASTER_TRACKLIST[i].id);
@@ -341,7 +344,7 @@ function addTracksToPlaylist(data, callback){
 	});
 }
 
-//Open the playlist in a new tab
+//Unbind the submit button to open the playlist page
 function openPlaylist(data, link){
 	spotifyLink = link;
 	sessionStorage.link =  JSON.stringify(spotifyLink);
@@ -353,34 +356,35 @@ function openPlaylist(data, link){
 //Render playlist to playlist page
 function renderPlaylist(songs){
 	AUTHORIZATION_CODE = JSON.parse(sessionStorage.access);
-
-	console.log("Auth code 2 is "+AUTHORIZATION_CODE )
-
+	spotifyUserId = JSON.parse(sessionStorage.spotifyUserId);
 	spotifyLink = JSON.parse(sessionStorage.link);
 	firstPlaylist = JSON.parse(sessionStorage.firstPlaylist);
-	
+	if(firstPlaylist){
+		firstPlaylist = false;
+		sessionStorage.firstPlaylist = JSON.stringify(firstPlaylist);
+	}
+
+	playlistId = JSON.parse(sessionStorage.playlistId);
+	//spotifyUserId = JSON.parse(sessionStorage.spotifyUserId);
 	fromStation = JSON.parse(sessionStorage.fromStation);
 	toStation = JSON.parse(sessionStorage.toStation);
 	mood = JSON.parse(sessionStorage.mood);
-	
+
 	$('.js-playlist-title').html(`<p>A ${mood} Journey from ${fromStation} to ${toStation}</p>`);
-	
+	$('.js-playlist').html(`
+		<iframe src="https://open.spotify.com/embed?uri=spotify:user:${spotifyUserId}:playlist:${playlistId}"
+        width="100%" height="80" frameborder="0" style="border-radius: 10px" allowtransparency="true"></iframe>
+    `);
+
 	songs.forEach(item => {
 		var duration = convertTrackTime(item.duration_ms);
 		$(".js-playlist").append(`
 			<div class="js-playlist-entry">
-			<p class="js-song-name">${item.name}</p>
+			<p class="js-song-name">${item.name} <span class="subtle">by ${item.artist}</span></p>
 			<p class="js-song-time">${duration}</p>
 			</div>	
 			`);
 	});
-
-	//open the playlist in a new tab
-	var newWin = window.open(spotifyLink);             		
-		//Detect pop up blocker
-	if(!newWin || newWin.closed || typeof newWin.closed=='undefined'){ 
-		$(".js-playlist-title").before(`<div class="red"><p>Please disable your popup blocker to allow Spotify to open</p></div>`);
-	} 	
 }
 
 //Adds converts song times to minute:second format 
@@ -394,10 +398,7 @@ function convertTrackTime(trackDuration){
 ///////// ::::: :: : : Menu Item Methods : : :: :::::: /////////
 //Add category names to the mood options
 function addCategoryNames(){
-	console.log("addCategoryNames ran");
 	AUTHORIZATION_CODE = JSON.parse(sessionStorage.access);
-	console.log("Auth code is "+ AUTHORIZATION_CODE )
-	spotifyUserId = JSON.parse(sessionStorage.userId);
 	var categories = getSpotifyCategory(getCategoryID);
 }
 
@@ -426,6 +427,9 @@ function getCategoryID(data){
 		}
 		$("#mood").append(`<option>${cat}</option>`);
 	}
+	
+	//spotifyUserId = JSON.parse(sessionStorage.spotifyUserId);
+
 }
 
 ///////// ::::: :: : : Event Listeners : : :: :::::: /////////
@@ -433,6 +437,8 @@ function getCategoryID(data){
 function handleSubmit(){
 	$(".js-journey-form").submit(function(event){ 
 		event.preventDefault();
+		
+		spotifyUserId = JSON.parse(sessionStorage.spotifyUserId);
 
 		//take session storage firstPlaylist variable and convert it to a variable local to index.js, since we're clearing session storage a few lines down 
 		//this will help detect if this is the browser's first generation fo the playlist, rather than  
@@ -441,7 +447,8 @@ function handleSubmit(){
 		sessionStorage.clear();
 
 		sessionStorage.setItem('access', AUTHORIZATION_CODE);
-		sessionStorage.setItem('userId', spotifyUserId);
+		sessionStorage.spotifyUserId = JSON.stringify(spotifyUserId);
+
 
 		desiredMood = $(this).find("#mood").val(); 
 		fromStation = $(this).find("#location").val();
@@ -492,7 +499,6 @@ function showProgress(){
 function updateProgress(percentage){
 	var elem = document.getElementById('progress-bar');
 	var width = 1;
-	console.log('progress running ' + percentage*100 + "%");
 	
 	width = percentage;
 	if(width > 1) width = 1;

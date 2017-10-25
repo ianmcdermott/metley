@@ -5,9 +5,9 @@
 	<title>Metley Playlist</title>
 	<meta name="description" content="Make a Spotify Playlist the length of your train journey!">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/meyerreset.css" rel="stylesheet" type="text/css">
 
 	<link href="main.css" rel="stylesheet" type="text/css" />
-	<link href="/meyerreset.css" rel="stylesheet" type="text/css">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -20,13 +20,15 @@
 </head>
 <body  onload="updatePlaylist();">
 	<div class="wrapper container-fluid">
-		<header class="row"><h1>Metley</h1></header>
+		<div>
+          <header><h1>Metley</h1></header>
+        </div>
 		<main role="main" class="row">
 			<h2 class="col-sm-12 js-playlist-title"></h2>
 			<div class="js-playlist justify-conent-md-center  col-sm-12"></div>
 		</main>
-		<div>
-			<div class="js-blue-btn col-sm-6"><a href="journey.html">View Journey Details</a></div>
+		<div class="center">
+			<div class="js-green-btn col-sm-6"><a href="journey.html">View Journey Details</a></div>
 			<div class="js-black-btn col-sm-6" id="plan"><a href="plan.html">Plan a new Journey</a></div>
 		</div>
 		<footer role="footer" class="row">
