@@ -17,6 +17,10 @@ video {
 
 }
 
+html{
+	overflow: hidden;
+}
+
 *, *:before, *:after{
 	box-sizing: inherit;
 	font-family: "Helvetica", sans-serif;
@@ -26,9 +30,9 @@ body{
 	height: 100%;
 	position: relative;
 	background-color: hsla(0,0%,0%,0.75);
-
 	background-image: url("media/tiles.png");
 	background-repeat: repeat;
+	overflow: auto;
 }
 
 main{
