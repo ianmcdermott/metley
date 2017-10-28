@@ -49,6 +49,13 @@ main{
 	}
 }
 
+@media only screen and (max-height: 640px) {
+	.wrapper{
+		top: 0;
+		translate(0, 0);
+	}
+}
+
 label{
 	padding: 10px 5px;
 	margin: 0;
