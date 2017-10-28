@@ -3,6 +3,7 @@ html{
 	background-color: #aaa;
 	height: 100%;
 	bottom: 0;
+	overflow: auto;
 }
 
 html,
@@ -50,10 +51,12 @@ main{
 }
 
 @media only screen and (max-height: 640px) {
-	body .wrapper{
-		top: 0;
-		translate(0, 0);
-	}
+	html body .wrapper{
+	position: absolute;
+	top: 0;
+	transform: translate(-50%, 0%);
+}
+	
 }
 
 label{
@@ -72,6 +75,8 @@ header{
 
 header h1{
 	margin: 10px 0;
+	font-size: 36px;
+	font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
 
