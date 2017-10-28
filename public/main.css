@@ -50,7 +50,7 @@ main{
 }
 
 @media only screen and (max-height: 640px) {
-	.wrapper{
+	body .wrapper{
 		top: 0;
 		translate(0, 0);
 	}
