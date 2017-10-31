@@ -384,3 +384,10 @@ body .wrapper{
 #login-button{
 	z-index: 3;
 }
+
+#cover {
+  position: absolute;
+  background: rgba(0, 0, 0, 0); /* added for example */
+  height: 80px;
+  width: 80px;
+}

@@ -372,9 +372,13 @@ function renderPlaylist(songs){
 
 	$('.js-playlist-title').html(`<p>A ${mood} Journey from ${fromStation} to ${toStation}</p>`);
 	$('.js-playlist').html(`
-		<iframe src="https://open.spotify.com/embed?uri=spotify:user:${spotifyUserId}:playlist:${playlistId}"
+		<div id="cover"></div><iframe id="iframe" src="https://open.spotify.com/embed?uri=spotify:user:${spotifyUserId}:playlist:${playlistId}"
         width="100%" height="80" frameborder="0" style="border-radius: 10px" allowtransparency="true"></iframe>
     `);
+	$('#cover').on('click', function(event) {
+        window.open(`https://open.spotify.com/user/${spotifyUserId}/playlist/${playlistId}`);
+
+	});
 
 	songs.forEach(item => {
 		var duration = convertTrackTime(item.duration_ms);
@@ -507,6 +511,10 @@ function updateProgress(percentage){
 	
 }
 
+function handleIframe(){
+    $('.web-redirect').click(event => window.location(`https://open.spotify.com/embed?uri=spotify:user:${spotifyUserId}:playlist:${playlistId}`));
+
+}
 
 
 function runApp(){
