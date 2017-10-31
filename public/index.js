@@ -372,7 +372,7 @@ function renderPlaylist(songs){
 
 	$('.js-playlist-title').html(`<p>A ${mood} Journey from ${fromStation} to ${toStation}</p>`);
 	$('.js-playlist').html(`
-		<iframe src="https://open.spotify.com/embed?uri=spotify:user:${spotifyUserId}:playlist:${playlistId}"
+		<iframe src="https://open.spotify.com/embed?uri=spotify/user/${spotifyUserId}/playlist/${playlistId}"
         width="100%" height="80" frameborder="0" style="border-radius: 10px" allowtransparency="true"></iframe>
     `);
 
