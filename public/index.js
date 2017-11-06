@@ -7,7 +7,7 @@ const WMATA_STATION_TO_STATION_URL = "https://api.wmata.com/Rail.svc/json/jSrcSt
 const STATION_CODE_URL = "https://api.wmata.com/Rail.svc/json/jStations/"
 
 var spotifyLink = "";
-const WMATA_KEY = "e1eee2b5677f408da40af8480a5fd5a8";
+const WMATA_KEY = "749bd665e0b74675b6e5c1aa7c369b48";
 var spotifyUserId = "";
 
 var TRACK_IDS = [];
