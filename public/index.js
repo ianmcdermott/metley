@@ -370,7 +370,7 @@ function renderPlaylist(songs){
 	toStation = JSON.parse(sessionStorage.toStation);
 	mood = JSON.parse(sessionStorage.mood);
 
-	$('.js-playlist-title').html(`<p>A ${mood} Journey from ${fromStation} to ${toStation}</p>`);
+	$('.js-playlist-title').html(`<p><span class="subtle" style="font-size: 30px;">A</span> <span style="text-transform: capitalize;">${mood}</span> <span class="subtle" style="font-size: 30px">journey from</span><br> ${fromStation} <span class="subtle" style="font-size: 30px">to<br></span> ${toStation}</span></p>`);
 	$('.js-playlist').html(`
 		<div id="cover"></div><iframe id="iframe" src="https://open.spotify.com/embed?uri=spotify:user:${spotifyUserId}:playlist:${playlistId}"
         width="100%" height="80" frameborder="0" style="border-radius: 10px" allowtransparency="true"></iframe>
@@ -384,10 +384,10 @@ function renderPlaylist(songs){
 		var duration = convertTrackTime(item.duration_ms);
 		$(".js-playlist").append(`
 			<div class="js-playlist-entry">
-			<p class="js-song-name">${item.name} <span class="subtle">by ${item.artist}</span></p>
+				<p class="js-song-name">${item.name} <span class="subtle">by ${item.artist}</span></p>
 			<p class="js-song-time">${duration}</p>
 			</div>	
-			`);
+		`);
 	});
 }
 
